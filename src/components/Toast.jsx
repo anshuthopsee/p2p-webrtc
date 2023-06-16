@@ -6,7 +6,6 @@ import Slide from "@mui/material/Slide";
 
 export default function Toast() {
     const { toastState, setToastState } = useContext(AppContext);
-
     const handleClose = () => {
         setToastState((prevState) => {
           return {
@@ -18,12 +17,12 @@ export default function Toast() {
     };
 
     return (
-      toastState ? 
       <Snackbar 
         open={toastState.show} 
         onClose={handleClose}
-        autoHideDuration={3000} 
+        autoHideDuration={10000} 
         TransitionComponent={Slide}
+        disableWindowBlurListener
       >
       <Alert 
         severity={toastState.severity} 
@@ -32,6 +31,5 @@ export default function Toast() {
         {toastState.message}
       </Alert>
       </Snackbar>
-        : ""
     );
 };

@@ -5,7 +5,7 @@ import {
   Typography,
   TextField, 
   Button } from '@mui/material';
-import QrScanner from './QrScanner';
+// import QrScanner from './QrScanner';
 import { PC } from '../AppContextProvider';
 import { 
   boxProps, 
@@ -17,13 +17,11 @@ import {
 
 
 const AcceptOffer = () => {
-  const { setAppState } = useContext(AppContext);
+  const { setAppState, setToastState } = useContext(AppContext);
   const [data, setData] = useState("");
   const [rerenderFlag, setRerenderFlag] = useState(false);
 
   const handleCLRandRS = () => {
-    setRerenderFlag(!rerenderFlag);
-
     if (data) {
       setData("");
     };
@@ -35,22 +33,31 @@ const AcceptOffer = () => {
 
   const handleCreateAnswer = async () => {
     if (data) {
-      const dataAsJSON = JSON.parse(data);
-      await PC.acceptOffer(dataAsJSON);
-      setAppState("create-answer");
+      try {
+        const dataAsJSON = JSON.parse(data);
+        await PC.acceptOffer(dataAsJSON);
+        console.log('accepted-offer');
+        setAppState("create-answer");
+      } catch {
+        setToastState({
+          show: true,
+          severity: "error",
+          message: "Not a valid offer. Please try again."
+        });
+      };
     };
   };
 
   return (
     <Box {...boxProps(90)}>
-      <Typography variant={'h6'}>Scan Offer QR Code</Typography>
-      <QrScanner {...{ 
+      <Typography variant={'h6'}>Recieve & Paste Offer from Peer</Typography>
+      {/* <QrScanner {...{ 
         data, 
         setData, 
         rerenderFlag, 
         setRerenderFlag 
         }
-      }/>
+      }/> */}
       <Box {...boxProps(100, true)}>
         <TextField {...textFieldProps} 
         focused={data ? true : false} 
@@ -61,7 +68,7 @@ const AcceptOffer = () => {
         <Button {...buttonProps}
           onClick={handleCLRandRS}
         >
-          {'[ Clear & Re-scan ]'}
+          {'[ Clear Offer ]'}
         </Button>
         <Button {...buttonProps}
           onClick={handleCreateAnswer}

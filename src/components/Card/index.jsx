@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../AppContextProvider";
+import { PC } from "../AppContextProvider";
 import { Box, Grid, Button } from '@mui/material/';
 import CreateOffer from "./createOffer";
 import CreateAnswer from "./createAnswer";
@@ -15,47 +16,60 @@ import {
 const boxStyling = {
   sx: {
     bgcolor: 'white', 
-    marginTop: '5rem',
+    top: '5rem',
     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
-    borderRadius: '5px',
-    height: '100%'
+    borderRadius: '5px'
   },
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  position: 'fixed',
+  minHeight: '270px',
+  maxWidth: '400px'
 };
 
 const Card = () => {
   const { 
     appState, 
-    setAppState 
+    setAppState,
+    setToastState 
   } = useContext(AppContext);
+
+  const [disabled, setDisabled] = useState(true);
 
   const Select = () => {
     return (
       <>
         <Box {...boxProps(90, true)}>
-
-            <Button {...buttonProps} 
-              onClick={
-                () => setAppState('create-offer')
-              }>
+            <Button {...buttonProps}
+              disabled={disabled} 
+              onClick={() => setAppState('create-offer')}>
                 Create Offer
             </Button>
-
- 
             <Button {...buttonProps}
-              onClick={
-                () => setAppState('accept-offer')
-              }>
+              disabled={disabled}
+              onClick={() => setAppState('accept-offer')}>
                 Accept Offer
               </Button>
-
         </Box>
       </>
     );
   };
+
+  useEffect(async () => {
+    try {
+      await PC.setup();
+      setDisabled(false);
+    } catch {
+      setDisabled(true)
+      setToastState({
+        show: true,
+        severity: "error",
+        message: "This app requires Camera/Microphone permission. Refresh the page and provide access."
+      });
+    };
+  }, []);
 
   const renderContent = () => {
     if (appState === "action-select") return <Select/>
@@ -67,8 +81,8 @@ const Card = () => {
 
   return (
     <Box {...boxStyling}>
-      <div className='title code'>webrtc-p2p</div>
-      <span className='text code'>Send and recieve texts and files quickly and seamlessly without the use of a server.</span>
+      <div className='title code'>p2p-webrtc</div>
+      <span className='text code'>Video call, chat and share files with a peer seamlessly, without the use of a server.</span>
       {renderContent()}
     </Box>
   );

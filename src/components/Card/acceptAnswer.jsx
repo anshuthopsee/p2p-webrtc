@@ -5,7 +5,7 @@ import {
   Typography,
   TextField, 
   Button } from '@mui/material';
-import QrScanner from './QrScanner';
+// import QrScanner from './QrScanner';
 import { PC } from '../AppContextProvider';
 import { 
   boxProps,
@@ -16,11 +16,9 @@ import {
 const AcceptAnswer = () => {
   const { setAppState } = useContext(AppContext);
   const [data, setData] = useState("");
-  const [rerenderFlag, setRerenderFlag] = useState(false);
+  // const [rerenderFlag, setRerenderFlag] = useState(false);
 
   const handleCLRandRS = () => {
-    setRerenderFlag(!rerenderFlag);
-
     if (data) {
       setData("");
     };
@@ -30,21 +28,31 @@ const AcceptAnswer = () => {
     setData(e.target.value);
   };
 
-  const handleConnectToPeer = () => {
+  const handleConnectToPeer = async () => {
     const dataAsJSON = JSON.parse(data);
-    PC.acceptAnswer(dataAsJSON);
+    try {
+      await PC.acceptAnswer(dataAsJSON);
+      setAppState('peers-connected');
+      console.log('accepted-answer');
+    } catch {
+      setToastState({
+        show: true,
+        severity: "error",
+        message: "Not a valid answer. Please try again."
+      });
+    };
   };
 
   return (
     <Box {...boxProps(90, true)}>
-      <Typography variant={'h6'}>Scan Answer QR Code</Typography>
-      <QrScanner {...{ 
+      <Typography variant={'h6'}>Recieve & Paste Answer from Peer</Typography>
+      {/* <QrScanner {...{ 
         data, 
         setData, 
         rerenderFlag, 
         setRerenderFlag 
         }
-      }/>
+      }/> */}
       <Box {...boxProps(100)}>
         <TextField {...textFieldProps} 
         focused={data ? true : false} 
@@ -55,7 +63,7 @@ const AcceptAnswer = () => {
         <Button {...buttonProps}
           onClick={handleCLRandRS}
         >
-          {'[ Clear & Re-scan ]'}
+          {'[ Clear Answer ]'}
         </Button>
         <Button {...buttonProps}
           onClick={handleConnectToPeer}
