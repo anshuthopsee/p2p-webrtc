@@ -26,7 +26,8 @@ const boxStyling = {
   flexDirection: 'column',
   position: 'fixed',
   minHeight: '270px',
-  maxWidth: '400px'
+  maxWidth: '400px',
+  zIndex: 2
 };
 
 const Card = () => {

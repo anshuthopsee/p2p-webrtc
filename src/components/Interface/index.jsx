@@ -18,13 +18,14 @@ const Interface = () => {
   useEffect(() => {
     if (appState === 'peers-connected') {
       localVideoRef.current.srcObject = PC.localStream;
+      localVideoRef.current.play();
     };
   });
 
   return (
     <>
       <Box {...boxProps}>
-        <video id="vid" ref={localVideoRef} height={'100%'} width={'100%'} ></video>
+        <video id="vid" ref={localVideoRef} height={'100%'} width={'100%'} style={{objectFit: 'cover'}}></video>
       </Box>
     </>
   );
