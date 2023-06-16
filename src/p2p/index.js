@@ -4,6 +4,7 @@ export default class P2P {
     this.dataChannel;
     this.localStream;
     this.remoteStream;
+    this.onaddstream;
     this.configuration = {
       iceServers: [
         {
@@ -31,6 +32,11 @@ export default class P2P {
         }
       );
       this.peerConnection.addStream(this.localStream);
+      this.peerConnection.ontrack = (e) => {
+        e.streams[0].getTracks().forEach((track) => {
+            this.remoteStream.addTrack(track, this.remoteStream);
+        });
+      };
       return true;
 
     } catch(err) {
