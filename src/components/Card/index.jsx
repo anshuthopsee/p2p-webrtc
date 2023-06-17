@@ -81,11 +81,14 @@ const Card = () => {
   };
 
   return (
-    <Box {...boxStyling}>
-      <div className='title code'>p2p-webrtc</div>
-      <span className='text code'>Video call, chat and share files with a peer seamlessly, without the use of a server.</span>
-      {renderContent()}
-    </Box>
+    appState !== "peers-connected" ? 
+      <Box {...boxStyling}>
+        <div className='title code'>p2p-webrtc</div>
+        <span className='text code'>Video call, chat and share files with a peer seamlessly, without the use of a server.</span>
+        {renderContent()}
+      </Box>
+    : 
+      ""
   );
 };
 

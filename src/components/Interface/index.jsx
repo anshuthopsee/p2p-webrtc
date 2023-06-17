@@ -15,6 +15,7 @@ const boxProps = {
 const boxProps2 = {
   height: '180px',
   width: '26%',
+  minWidth: '120px',
   position: 'absolute',
   border: '3px solid #91e3c2',
   borderRadius: "10px",
@@ -27,14 +28,27 @@ const Interface = () => {
   const localVideoRef = useRef();
   const remoteVideoRef = useRef();
 
-  useEffect(() => {
-    if (appState === 'peers-connected') {
-      localVideoRef.current.srcObject = PC.localStream;
-      localVideoRef.current.play();
+  const handleLocStreamAvailable = () => {
+    localVideoRef.current.srcObject = PC.localStream;
+    localVideoRef.current.play();
+  };
+
+  const handleRemStreamAvailable = () => {
+    if (!remoteVideoRef.current.srcObject) {
       remoteVideoRef.current.srcObject = PC.remoteStream;
-      remoteVideoRef.current.play();
+    remoteVideoRef.current.play();
     };
-  });
+  };
+
+  useEffect(() => {
+    document.addEventListener('local-stream-available', handleLocStreamAvailable);
+    document.addEventListener('remote-stream-available', handleRemStreamAvailable);
+
+    return () => {
+      document.removeEventListener('local-stream-available', handleLocStreamAvailable);
+      document.removeEventListener('remote-stream-available', handleRemStreamAvailable);
+    };
+  }, []);
 
   return (
     <>

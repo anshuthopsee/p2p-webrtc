@@ -15,6 +15,10 @@ export default class P2P {
     };
   };
 
+  addTracks = () => {
+    
+  };
+
   createPeerConnection = async () => {
     this.peerConnection = new RTCPeerConnection(this.configuration);
     this.remoteStream = new MediaStream();
@@ -32,11 +36,19 @@ export default class P2P {
         }
       );
       this.peerConnection.addStream(this.localStream);
+      const localStreamAvailable = new Event('local-stream-available');
+      document.dispatchEvent(localStreamAvailable);
+
       this.peerConnection.ontrack = (e) => {
+        const track = e.track;
+        const transceiver = e.transceiver;
         e.streams[0].getTracks().forEach((track) => {
-            this.remoteStream.addTrack(track, this.remoteStream);
+          this.remoteStream.addTrack(track, this.remoteStream);
         });
+        const remoteStreamAvailable = new Event('remote-stream-available');
+        document.dispatchEvent(remoteStreamAvailable);
       };
+
       return true;
 
     } catch(err) {
