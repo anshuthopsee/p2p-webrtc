@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../AppContextProvider';
 import { 
   Box, 
@@ -32,7 +32,6 @@ const AcceptAnswer = () => {
     const dataAsJSON = JSON.parse(data);
     try {
       await PC.acceptAnswer(dataAsJSON);
-      setAppState('peers-connected');
       console.log('accepted-answer');
     } catch {
       setToastState({
@@ -42,6 +41,15 @@ const AcceptAnswer = () => {
       });
     };
   };
+
+  const handlePeersConnected = () => {
+    setAppState('peers-connected');
+  };
+
+  useEffect(() => {
+    document.addEventListener('peers-connected', handlePeersConnected);
+    return () => document.removeEventListener('peers-connected', handlePeersConnected);
+  }, []);
 
   return (
     <Box {...boxProps(90, true)}>
@@ -75,4 +83,4 @@ const AcceptAnswer = () => {
   )
 }
 
-export default AcceptAnswer
+export default AcceptAnswer;

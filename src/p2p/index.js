@@ -25,7 +25,11 @@ export default class P2P {
     this.openDataChannel();
 
     this.peerConnection.addEventListener('connectionstatechange', () => {
-      console.log('connection-state:', this.peerConnection.connectionState)
+      console.log('connection-state:', this.peerConnection.connectionState);
+      if (this.peerConnection.connectionState) {
+        const peersConnected = new Event('peers-connected');
+        document.dispatchEvent(peersConnected);
+      };
     });
 
     try {
@@ -40,8 +44,6 @@ export default class P2P {
       document.dispatchEvent(localStreamAvailable);
 
       this.peerConnection.ontrack = (e) => {
-        const track = e.track;
-        const transceiver = e.transceiver;
         e.streams[0].getTracks().forEach((track) => {
           this.remoteStream.addTrack(track, this.remoteStream);
         });

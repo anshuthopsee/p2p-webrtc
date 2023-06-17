@@ -31,10 +31,17 @@ const CreateAnswer = () => {
     };
   };
 
+  const handlePeersConnected = () => {
+    setAppState('peers-connected');
+  };
+
   useEffect(async () => {
     const result = await PC.createAnswer();
     console.log(result)
     setAnswer(result);
+
+    document.addEventListener('peers-connected', handlePeersConnected);
+    return () => document.removeEventListener('peers-connected', handlePeersConnected);
   }, []);
 
   return (
