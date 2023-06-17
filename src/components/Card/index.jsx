@@ -16,7 +16,7 @@ import {
 const boxStyling = {
   sx: {
     bgcolor: 'white', 
-    top: '5rem',
+    marginTop: '5rem',
     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
     borderRadius: '5px'
   },
@@ -24,9 +24,18 @@ const boxStyling = {
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
-  position: 'fixed',
-  minHeight: '270px',
+  height: 'fit-content',
   maxWidth: '400px',
+  zIndex: 2
+};
+
+const backgroundProps = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  position: 'fixed',
   zIndex: 2
 };
 
@@ -82,11 +91,13 @@ const Card = () => {
 
   return (
     appState !== "peers-connected" ? 
+    <Box {...backgroundProps}>
       <Box {...boxStyling}>
         <div className='title code'>p2p-webrtc</div>
         <span className='text code'>Video call, chat and share files with a peer seamlessly, without the use of a server.</span>
         {renderContent()}
       </Box>
+    </Box>
     : 
       ""
   );
