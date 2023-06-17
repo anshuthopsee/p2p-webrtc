@@ -26,7 +26,7 @@ export default class P2P {
 
     this.peerConnection.addEventListener('connectionstatechange', () => {
       console.log('connection-state:', this.peerConnection.connectionState);
-      if (this.peerConnection.connectionState) {
+      if (this.peerConnection.connectionState === 'connected') {
         const peersConnected = new Event('peers-connected');
         document.dispatchEvent(peersConnected);
       };
