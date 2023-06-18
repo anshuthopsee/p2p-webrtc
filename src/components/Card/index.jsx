@@ -26,7 +26,7 @@ const boxStyling = {
   flexDirection: 'column',
   height: 'fit-content',
   maxWidth: '400px',
-  zIndex: 2
+  zIndex: 5
 };
 
 const backgroundProps = {
@@ -36,7 +36,7 @@ const backgroundProps = {
   justifyContent: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.7)',
   position: 'fixed',
-  zIndex: 2
+  zIndex: 5
 };
 
 const Card = () => {

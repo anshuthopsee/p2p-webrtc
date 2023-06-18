@@ -2,25 +2,14 @@ import { useEffect, useContext, useRef } from 'react'
 import { AppContext } from '../AppContextProvider';
 import { PC } from '../AppContextProvider';
 import { Box } from '@mui/material';
+import { video1BoxStyles, video2BoxStyles, videoStyles } from './styling';
 
 const boxProps = {
-  height: '600px',
-  width: '100%',
-  marginTop: '2rem',
-  border: '3px solid #91e3c2',
-  borderRadius: "20px",
-  position: 'relative'
+  
 };
 
 const boxProps2 = {
-  height: '180px',
-  width: '26%',
-  minWidth: '120px',
-  position: 'absolute',
-  border: '3px solid #91e3c2',
-  borderRadius: "10px",
-  right: '10px',
-  bottom: '10px'
+  
 }
 
 const Interface = () => {
@@ -52,10 +41,10 @@ const Interface = () => {
 
   return (
     <>
-      <Box {...boxProps}>
-        <video ref={remoteVideoRef} height={'100%'} width={'100%'} style={{objectFit: 'cover'}}></video>
-        <Box {...boxProps2}>
-          <video ref={localVideoRef} height={'100%'} width={'100%'} style={{objectFit: 'cover'}}></video>
+      <Box {...video1BoxStyles}>
+        <video ref={remoteVideoRef} {...videoStyles(1)}></video>
+        <Box {...video2BoxStyles}>
+          <video ref={localVideoRef} {...videoStyles(2)}></video>
         </Box>
       </Box>
     </>
