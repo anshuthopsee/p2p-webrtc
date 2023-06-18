@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const gridProps = {
+export const gridStyle = {
   sx: {
     height: '100%'
   },
@@ -12,7 +12,7 @@ export const gridProps = {
   rowGap: 2
 };
 
-export const itemProps = {
+export const itemStyle = {
   sx: {
     width: '100%'
   },
@@ -23,7 +23,33 @@ export const itemProps = {
   alignItems: 'center'
 };
 
-export const boxProps = (width, container=false) => {
+export const cardStyle = {
+  sx: {
+    bgcolor: 'white', 
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;',
+    borderRadius: '5px',
+    marginTop: '5rem'
+  },
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  height: 'fit-content',
+  maxWidth: '400px',
+  zIndex: 5
+};
+
+export const backgroundStyle = {
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  position: 'fixed',
+  zIndex: 5
+};
+
+export const boxStyle = (width, container=false) => {
   return {
     sx: {
       width: `${width}%`,
@@ -37,7 +63,7 @@ export const boxProps = (width, container=false) => {
   };
 };
 
-export const buttonProps = {
+export const buttonStyle = {
   sx: {
     width: '100%',
     margin: '0',
@@ -49,7 +75,7 @@ export const buttonProps = {
   }
 };
 
-export const textFieldProps = {
+export const textFieldStyle = {
   sx: {
     fieldset: {
       borderColor: '#91e3c2',
@@ -80,7 +106,7 @@ export const textFieldProps = {
   variant: 'outlined',
 };
 
-export const containerProps = {
+export const containerStyle = {
   sx: {
     width: '95%'
   },
@@ -90,7 +116,7 @@ export const containerProps = {
   columnGap: 1
 };
 
-export const copyButtonProps = {
+export const copyButtonStyle = {
   sx: {
     width: '40px',
     height: '55px',
@@ -101,8 +127,8 @@ export const copyButtonProps = {
   }
 };
 
-export const copyIconProps = {
-  fontSize: 'small',
+export const copyIconStyle = {
+  fontSize: 'medium',
   sx: {
     fontSize: '20px',
     fill: 'black'

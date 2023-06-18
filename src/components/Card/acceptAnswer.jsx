@@ -8,10 +8,10 @@ import {
 // import QrScanner from './QrScanner';
 import { PC } from '../AppContextProvider';
 import { 
-  boxProps,
-   textFieldProps, 
-   buttonProps
-  } from './styling';
+  boxStyle,
+   textFieldStyle, 
+   buttonStyle
+} from './styling';
 
 const AcceptAnswer = () => {
   const { setAppState, setToastState } = useContext(AppContext);
@@ -52,7 +52,7 @@ const AcceptAnswer = () => {
   }, []);
 
   return (
-    <Box {...boxProps(90, true)}>
+    <Box {...boxStyle(90, true)}>
       <Typography variant={'h6'}>Recieve & Paste Answer from Peer</Typography>
       {/* <QrScanner {...{ 
         data, 
@@ -61,19 +61,19 @@ const AcceptAnswer = () => {
         setRerenderFlag 
         }
       }/> */}
-      <Box {...boxProps(100)}>
-        <TextField {...textFieldProps} 
+      <Box {...boxStyle(100)}>
+        <TextField {...textFieldStyle} 
         focused={data ? true : false} 
         label={'paste-sdp-answer'}
         value={data}
         onChange={handleOnChange}
         />
-        <Button {...buttonProps}
+        <Button {...buttonStyle}
           onClick={handleCLRandRS}
         >
           {'[ Clear Answer ]'}
         </Button>
-        <Button {...buttonProps}
+        <Button {...buttonStyle}
           onClick={handleConnectToPeer}
         >
           {'Connect to peer'}

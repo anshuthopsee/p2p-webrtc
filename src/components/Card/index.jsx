@@ -8,38 +8,12 @@ import CreateAnswer from "./createAnswer";
 import AcceptOffer from "./acceptOffer";
 import AcceptAnswer from "./acceptAnswer";
 import { 
-  gridProps, 
-  boxProps,
-  itemProps, 
-  buttonProps,
+  cardStyle,
+  backgroundStyle,
+  boxStyle,
+  buttonStyle,
   typographyTheme
 } from "./styling";
-
-const boxStyling = {
-  sx: {
-    bgcolor: 'white', 
-    marginTop: '5rem',
-    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;',
-    borderRadius: '5px'
-  },
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  height: 'fit-content',
-  maxWidth: '400px',
-  zIndex: 5
-};
-
-const backgroundProps = {
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  position: 'fixed',
-  zIndex: 5
-};
 
 const Card = () => {
   const { 
@@ -53,13 +27,13 @@ const Card = () => {
   const Select = () => {
     return (
       <>
-        <Box {...boxProps(90, true)}>
-            <Button {...buttonProps}
+        <Box {...boxStyle(90, true)}>
+            <Button {...buttonStyle}
               disabled={disabled} 
               onClick={() => setAppState('create-offer')}>
                 Create Offer
             </Button>
-            <Button {...buttonProps}
+            <Button {...buttonStyle}
               disabled={disabled}
               onClick={() => setAppState('accept-offer')}>
                 Accept Offer
@@ -93,8 +67,8 @@ const Card = () => {
 
   return (
     appState !== "peers-connected" ? 
-    <Box {...backgroundProps}>
-      <Box {...boxStyling}>
+    <Box {...backgroundStyle}>
+      <Box {...cardStyle}>
         <ThemeProvider theme={typographyTheme}>
           <Typography variant="h2">p2p-webrtc</Typography>
           <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as Video, Audio, Text & Files exchange, peer to peer.</Typography>

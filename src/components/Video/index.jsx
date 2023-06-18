@@ -4,7 +4,7 @@ import { PC } from '../AppContextProvider';
 import { Box } from '@mui/material';
 import { video1BoxStyles, video2BoxStyles, videoStyles } from './styling';
 
-const Interface = () => {
+const Video = () => {
   const { appState } = useContext(AppContext);
   const localVideoRef = useRef();
   const remoteVideoRef = useRef();
@@ -43,4 +43,4 @@ const Interface = () => {
   );
 };
 
-export default Interface;
+export default Video;

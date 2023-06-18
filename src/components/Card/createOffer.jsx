@@ -9,12 +9,12 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 // import QRCode from 'react-qr-code';
 import { PC } from '../AppContextProvider';
 import { 
-  boxProps, 
-  containerProps, 
-  textFieldProps, 
-  buttonProps,
-  copyButtonProps, 
-  copyIconProps 
+  boxStyle, 
+  containerStyle, 
+  textFieldStyle, 
+  buttonStyle,
+  copyButtonStyle, 
+  copyIconStyle 
 } from './styling';
 
 const CreateOffer = () => {
@@ -39,24 +39,24 @@ const CreateOffer = () => {
   }, []);
   
   return (
-    <Box {...boxProps(90, true)}>
+    <Box {...boxStyle(90, true)}>
       <Typography variant={'h6'}>Copy & Send Offer to Peer</Typography>
       {/* <QRCode value={offer}/> */}
-      <Box {...containerProps}>
-        <TextField {...textFieldProps} 
+      <Box {...containerStyle}>
+        <TextField {...textFieldStyle} 
         label={'copy-sdp-offer'}
         value={offer}
         />
         <Button 
-          {...copyButtonProps}
+          {...copyButtonStyle}
           onClick={handleCopy}
         >
           <ContentCopyIcon 
-          {...copyIconProps}
+          {...copyIconStyle}
           />
         </Button>
       </Box>
-      <Button {...buttonProps}
+      <Button {...buttonStyle}
         onClick={() => setAppState("accept-answer")}
       >
         Accept Answer

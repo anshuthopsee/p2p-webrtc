@@ -4,7 +4,8 @@ import Toast from './Toast';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Card from './Card';
-import Interface from './Interface';
+import Video from './Video';
+import Chat from './Chat';
 
 function App() {
   const containerStyling = {
@@ -19,7 +20,9 @@ function App() {
     display: 'flex',
     height: '100%',
     width: '100%',
-    justifyContent: 'center'
+    alignItems: 'center',
+    flexDirection: 'column',
+    rowGap: '20px'
   };
 
   return (
@@ -29,7 +32,8 @@ function App() {
         <Container {...containerStyling}>
           <Box {...boxStyling}>
             <Card/>
-            <Interface/>
+            <Video/>
+            <Chat/>
           </Box>
         </Container>
       </AppContextProvider>

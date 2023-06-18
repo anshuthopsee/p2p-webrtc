@@ -8,9 +8,9 @@ import {
 // import QrScanner from './QrScanner';
 import { PC } from '../AppContextProvider';
 import { 
-  boxProps, 
-  buttonProps, 
-  textFieldProps 
+  boxStyle, 
+  buttonStyle, 
+  textFieldStyle 
 } from './styling';
 
 
@@ -49,7 +49,7 @@ const AcceptOffer = () => {
   };
 
   return (
-    <Box {...boxProps(90)}>
+    <Box {...boxStyle(90)}>
       <Typography variant={'h6'}>Recieve & Paste Offer from Peer</Typography>
       {/* <QrScanner {...{ 
         data, 
@@ -58,19 +58,19 @@ const AcceptOffer = () => {
         setRerenderFlag 
         }
       }/> */}
-      <Box {...boxProps(100, true)}>
-        <TextField {...textFieldProps} 
+      <Box {...boxStyle(100, true)}>
+        <TextField {...textFieldStyle} 
         focused={data ? true : false} 
         label={'paste-sdp-offer'}
         value={data}
         onChange={handleOnChange}
         />
-        <Button {...buttonProps}
+        <Button {...buttonStyle}
           onClick={handleCLRandRS}
         >
           {'[ Clear Offer ]'}
         </Button>
-        <Button {...buttonProps}
+        <Button {...buttonStyle}
           onClick={handleCreateAnswer}
         >
           Create Answer

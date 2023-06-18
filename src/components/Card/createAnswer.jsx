@@ -9,11 +9,11 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 // import QRCode from 'react-qr-code';
 import { PC } from '../AppContextProvider';
 import { 
-  boxProps, 
-  containerProps, 
-  textFieldProps, 
-  copyButtonProps, 
-  copyIconProps 
+  boxStyle, 
+  containerStyle, 
+  textFieldStyle, 
+  copyButtonStyle, 
+  copyIconStyle 
 } from './styling';
 
 const CreateAnswer = () => {
@@ -45,20 +45,20 @@ const CreateAnswer = () => {
   }, []);
 
   return (
-    <Box {...boxProps(90, true)}>
+    <Box {...boxStyle(90, true)}>
       <Typography variant={'h6'}>Send Answer to Peer</Typography>
       {/* <QRCode value={answer}/> */}
-      <Box {...containerProps}>
-      <TextField {...textFieldProps}
+      <Box {...containerStyle}>
+      <TextField {...textFieldStyle}
        label={'copy-sdp-answer'}
        value={answer}
        />
       <Button 
-        {...copyButtonProps}
+        {...copyButtonStyle}
         onClick={handleCopy}
       >
           <ContentCopyIcon 
-            {...copyIconProps}
+            {...copyIconStyle}
           />
       </Button>
       </Box>

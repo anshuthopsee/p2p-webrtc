@@ -11,12 +11,8 @@ export default class P2P {
           urls: ['stun:stun4.l.google.com:19302']
         }
       ],
-      iceCandidatePoolSize: 100
+      iceCandidatePoolSize: 10
     };
-  };
-
-  addTracks = () => {
-    
   };
 
   createPeerConnection = async () => {

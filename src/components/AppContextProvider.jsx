@@ -1,4 +1,4 @@
-import { useState, createContext, useRef, useEffect } from "react";
+import { useState, createContext } from "react";
 import P2P from "../p2p";
 
 export const PC = new P2P();
@@ -15,14 +15,15 @@ const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider 
-    value={
-      { 
-        appState, 
-        setAppState,
-        toastState,
-        setToastState
+      value={
+        { 
+          appState, 
+          setAppState,
+          toastState,
+          setToastState
+        }
       }
-    }>
+    >
       {children}
     </AppContext.Provider>
   );
