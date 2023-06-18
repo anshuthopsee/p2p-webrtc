@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../AppContextProvider";
 import { PC } from "../AppContextProvider";
-import { Box, Grid, Button } from '@mui/material/';
+import { Box, Button, Typography } from '@mui/material/';
+import { ThemeProvider } from '@mui/material/styles';
 import CreateOffer from "./createOffer";
 import CreateAnswer from "./createAnswer";
 import AcceptOffer from "./acceptOffer";
@@ -10,14 +11,15 @@ import {
   gridProps, 
   boxProps,
   itemProps, 
-  buttonProps 
+  buttonProps,
+  typographyTheme
 } from "./styling";
 
 const boxStyling = {
   sx: {
     bgcolor: 'white', 
     marginTop: '5rem',
-    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
+    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;',
     borderRadius: '5px'
   },
   display: 'flex',
@@ -34,7 +36,7 @@ const backgroundProps = {
   height: '100%',
   display: 'flex',
   justifyContent: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  backgroundColor: 'rgba(0, 0, 0, 0.2)',
   position: 'fixed',
   zIndex: 5
 };
@@ -93,8 +95,10 @@ const Card = () => {
     appState !== "peers-connected" ? 
     <Box {...backgroundProps}>
       <Box {...boxStyling}>
-        <div className='title code'>p2p-webrtc</div>
-        <span className='text code'>Video call, chat and share files with a peer seamlessly, without the use of a server.</span>
+        <ThemeProvider theme={typographyTheme}>
+          <Typography variant="h2">p2p-webrtc</Typography>
+          <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as Video, Audio, Text & Files exchange, peer to peer.</Typography>
+        </ThemeProvider>
         {renderContent()}
       </Box>
     </Box>

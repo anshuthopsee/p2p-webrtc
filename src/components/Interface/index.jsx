@@ -4,14 +4,6 @@ import { PC } from '../AppContextProvider';
 import { Box } from '@mui/material';
 import { video1BoxStyles, video2BoxStyles, videoStyles } from './styling';
 
-const boxProps = {
-  
-};
-
-const boxProps2 = {
-  
-}
-
 const Interface = () => {
   const { appState } = useContext(AppContext);
   const localVideoRef = useRef();

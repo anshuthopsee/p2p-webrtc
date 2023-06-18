@@ -5,7 +5,7 @@ export const videoStyles = (num) => {
     style: {
       objectFit: "cover",
       border: `${6/num}px solid #91e3c2`,
-      borderRadius: "16px"
+      borderRadius: `${16/num}px`
     }
   }
 };
@@ -15,6 +15,8 @@ export const video1BoxStyles = {
   width: '100%',
   marginTop: '2rem',
   position: 'relative',
+  display: 'flex',
+  justifyContent: 'center'
 };
 
 export const video2BoxStyles = {
@@ -22,6 +24,6 @@ export const video2BoxStyles = {
   width: '26%',
   minWidth: '120px',
   position: 'absolute',
-  right: '10px',
+  right: '22px',
   bottom: '10px'
 };

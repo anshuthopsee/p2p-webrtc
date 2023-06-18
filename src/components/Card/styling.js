@@ -1,3 +1,5 @@
+import { createTheme } from '@mui/material/styles';
+
 export const gridProps = {
   sx: {
     height: '100%'
@@ -106,3 +108,22 @@ export const copyIconProps = {
     fill: 'black'
   }
 };
+
+export const typographyTheme = createTheme({
+  typography: {
+    body1: {
+      margin: '10px 15px',
+      textAlign: 'center',
+      fontSize: 13,
+      fontFamily: 'source-code-pro, Menlo, Monaco, Consolas'
+    },
+    h2: {
+      fontWeight: 'bolder',
+      textTransform: 'none',
+      padding: 10,
+      borderBottom: '3px dashed gray',
+      fontSize: 26,
+      letterSpacing: 1.5
+    }
+  }
+});

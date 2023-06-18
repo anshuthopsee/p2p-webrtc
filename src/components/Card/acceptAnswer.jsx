@@ -14,7 +14,7 @@ import {
   } from './styling';
 
 const AcceptAnswer = () => {
-  const { setAppState } = useContext(AppContext);
+  const { setAppState, setToastState } = useContext(AppContext);
   const [data, setData] = useState("");
   // const [rerenderFlag, setRerenderFlag] = useState(false);
 
