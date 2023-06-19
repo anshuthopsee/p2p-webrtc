@@ -1,10 +1,11 @@
 export const chatBoxStyle = {
   display: 'flex',
   height: '15vh',
+  minHeight: '130px',
   width: '100%',
   rowGap: 1,
   position: 'relative',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 
 export const containerStyle = {
@@ -68,16 +69,21 @@ export const sendIconStyle = {
 };
 
 export const chatStyle = (expanded) => {
-  console.log(expanded)
+  const fifteenVH = window.innerHeight * 0.15
+  const heightDiff = 130 > fifteenVH ? 130-fifteenVH : 0;
   return {
     display: 'flex',
-    height: expanded ? '55vh' : '15vh',
+    minHeight: '130px',
     width: '100%',
-    top: expanded ? '-40vh' : '0vh',
     position: 'absolute',
     backgroundColor: 'white',
     border: '1px solid lightgray',
-    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;'
+    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
+    sx: {
+      height: expanded ? `calc(55vh + ${heightDiff}px)` : '15vh',
+      top: expanded ? '-40vh' : '0',
+      overflowY: 'scroll',
+    }
   };
 };
 
@@ -86,14 +92,14 @@ export const expandButtonStyle = (expanded) => {
     size: 'small',
     sx: {
       position: 'absolute',
-      top: expanded ? '-40vh' : '0vh',
+      top: expanded ? '-40vh' : '0',
       width: 'fit-content',
       height: '30px',
       backgroundColor: '#91e3c2',
       ':hover': {
         backgroundColor: '#42f5ad'
       },
-      zIndex: 2
+      zIndex: 2,
     }
   };
 };
@@ -104,4 +110,29 @@ export const expandIconStyle = {
     fontSize: '20px',
     fill: 'black'
   }
+};
+
+const chatBubbleStyle = {
+  position: 'absolute',
+  display: 'flex',
+  alignItems: 'center',
+  width: 'auto',
+  height: '40px',
+  fontSize: '14px',
+  padding: '0 15px',
+  margin: '15px 0', 
+  color: 'black',
+  borderRadius: '15px',
+};
+
+export const localChatStyle = {
+  ...chatBubbleStyle,
+  right: 10,
+  backgroundColor: '#91e3c2',
+};
+
+export const remoteChatStyle = {
+  ...chatBubbleStyle,
+  left: 10,
+  backgroundColor: '#42f5ad',
 };

@@ -1,7 +1,7 @@
 export default class P2P {
   constructor() {
     this.peerConnection;
-    this.dataChannel;
+    this.sendChannel;
     this.localStream;
     this.remoteStream;
     this.onaddstream;
@@ -47,6 +47,22 @@ export default class P2P {
         document.dispatchEvent(remoteStreamAvailable);
       };
 
+      this.peerConnection.ondatachannel = (e) => {
+        if (e.channel.label === "data-channel") {
+          this.recieveChannel = e.channel;
+          console.log('data-channel-established');
+
+          this.recieveChannel.onmessage = (e) => {
+            const { data } = e;
+            const recievedMessage = new CustomEvent('recieved-message', {
+              detail: {
+                message: data
+              }
+            });
+            document.dispatchEvent(recievedMessage);
+          };
+        }
+      };
       return true;
 
     } catch(err) {
@@ -60,8 +76,8 @@ export default class P2P {
       reliable: true 
    }; 
     
-    this.dataChannel = this.peerConnection.createDataChannel('test', options);
-    this.dataChannel.binaryType = "arraybuffer";
+    this.sendChannel = this.peerConnection.createDataChannel('data-channel', options);
+    this.sendChannel.binaryType = "arraybuffer";
   };
 
   getIceCandidates = () => {

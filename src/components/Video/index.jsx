@@ -10,14 +10,16 @@ const Video = () => {
   const remoteVideoRef = useRef();
 
   const handleLocStreamAvailable = () => {
-    localVideoRef.current.srcObject = PC.localStream;
-    localVideoRef.current.play();
+    if (!localVideoRef.current.srcObject) {
+      localVideoRef.current.srcObject = PC.localStream;
+      localVideoRef.current.play();
+    };
   };
 
   const handleRemStreamAvailable = () => {
     if (!remoteVideoRef.current.srcObject) {
       remoteVideoRef.current.srcObject = PC.remoteStream;
-    remoteVideoRef.current.play();
+      remoteVideoRef.current.play();
     };
   };
 

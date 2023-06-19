@@ -41,12 +41,14 @@ export const cardStyle = {
 
 export const backgroundStyle = {
   width: '100%',
-  height: '100%',
   display: 'flex',
   justifyContent: 'center',
   backgroundColor: 'rgba(0, 0, 0, 0.2)',
   position: 'fixed',
-  zIndex: 5
+  zIndex: 5,
+  sx: {
+    height: 'calc(100vh + env(safe-area-inset-top))',
+  }
 };
 
 export const boxStyle = (width, container=false) => {
