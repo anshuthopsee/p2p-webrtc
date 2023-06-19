@@ -1,10 +1,10 @@
 export const chatBoxStyle = {
   display: 'flex',
-  height: '100%',
+  height: '15vh',
   width: '100%',
   rowGap: 1,
-  flexDirection: 'column',
-  alignItems: 'stretch'
+  position: 'relative',
+  justifyContent: 'center'
 };
 
 export const containerStyle = {
@@ -12,13 +12,15 @@ export const containerStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   columnGap: 1,
-  width: '100%'
+  width: '100%',
+  position: 'relative'
 };
 
 export const textFieldStyle = {
   sx: {
     fieldset: {
       borderColor: '#91e3c2',
+      boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
       margin: 0
     },
     input: {
@@ -65,9 +67,41 @@ export const sendIconStyle = {
   }
 };
 
-export const chatStyle = {
-  display: 'flex',
-  height: '15vh',
-  width: '100%',
-  border: '1px solid lightgray'
+export const chatStyle = (expanded) => {
+  console.log(expanded)
+  return {
+    display: 'flex',
+    height: expanded ? '55vh' : '15vh',
+    width: '100%',
+    top: expanded ? '-40vh' : '0vh',
+    position: 'absolute',
+    backgroundColor: 'white',
+    border: '1px solid lightgray',
+    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;'
+  };
+};
+
+export const expandButtonStyle = (expanded) => {
+  return {
+    size: 'small',
+    sx: {
+      position: 'absolute',
+      top: expanded ? '-40vh' : '0vh',
+      width: 'fit-content',
+      height: '30px',
+      backgroundColor: '#91e3c2',
+      ':hover': {
+        backgroundColor: '#42f5ad'
+      },
+      zIndex: 2
+    }
+  };
+};
+
+export const expandIconStyle = {
+  fontSize: 'small',
+  sx: {
+    fontSize: '20px',
+    fill: 'black'
+  }
 };
