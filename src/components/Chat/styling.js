@@ -1,7 +1,7 @@
 export const chatBoxStyle = {
   display: 'flex',
   height: '15vh',
-  minHeight: '130px',
+  minHeight: '15vh',
   width: '100%',
   rowGap: 1,
   position: 'relative',
@@ -14,6 +14,7 @@ export const containerStyle = {
   alignItems: 'center',
   columnGap: 1,
   width: '100%',
+  marginBottom: '20px',
   position: 'relative'
 };
 
@@ -22,10 +23,10 @@ export const textFieldStyle = {
     fieldset: {
       borderColor: '#91e3c2',
       boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
-      margin: 0
+      margin: 0,
     },
     input: {
-      color: 'black'
+      color: 'black',
     },
     "& label": {
       color: "#91e3c2"
@@ -35,7 +36,7 @@ export const textFieldStyle = {
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "#42f5ad"
+        borderColor: "#42f5ad",
       }
     },
     "& .MuiOutlinedInput-root:hover": {
@@ -46,7 +47,10 @@ export const textFieldStyle = {
   },
   fullWidth: true,
   minRows: 3,
-  variant: 'outlined'
+  variant: 'outlined',
+  multiline: true,
+  minRows: 1,
+  maxRows: Infinity
 };
 
 export const sendButtonStyle = {
@@ -69,20 +73,21 @@ export const sendIconStyle = {
 };
 
 export const chatStyle = (expanded) => {
-  const fifteenVH = window.innerHeight * 0.15
-  const heightDiff = 130 > fifteenVH ? 130-fifteenVH : 0;
   return {
-    display: 'flex',
-    minHeight: '130px',
+    display: 'block',
+    minHeight: '15vh',
     width: '100%',
     position: 'absolute',
-    backgroundColor: 'white',
     border: '1px solid lightgray',
+    backgroundColor: 'white',
+    opacity: 0.8,
     boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
     sx: {
-      height: expanded ? `calc(55vh + ${heightDiff}px)` : '15vh',
+      height: expanded ? '55vh' : '15vh',
       top: expanded ? '-40vh' : '0',
       overflowY: 'scroll',
+      transition: 'all 0.2s ease-out',
+      background: 'repeating-linear-gradient( 45deg, #dcdede, #dcdede 5px, #ffffff 5px, #ffffff 25px )',
     }
   };
 };
@@ -100,6 +105,7 @@ export const expandButtonStyle = (expanded) => {
         backgroundColor: '#42f5ad'
       },
       zIndex: 2,
+      transition: 'top 0.2s ease-out'
     }
   };
 };
@@ -113,26 +119,41 @@ export const expandIconStyle = {
 };
 
 const chatBubbleStyle = {
-  position: 'absolute',
   display: 'flex',
-  alignItems: 'center',
+  position: 'relative',
+  justifyContent: 'center',
   width: 'auto',
-  height: '40px',
+  maxWidth: '20rem',
+  height: 'auto',
   fontSize: '14px',
-  padding: '0 15px',
-  margin: '15px 0', 
+  padding: '10px 15px',
+  margin: '5px 10px', 
   color: 'black',
-  borderRadius: '15px',
+  borderRadius: '15px'
+};
+
+export const chatWrapper = {
+  position: 'relative',
+  top: '30px',
+  width: '100%',
+  height: 'auto',
+  display: 'flex',
 };
 
 export const localChatStyle = {
   ...chatBubbleStyle,
-  right: 10,
-  backgroundColor: '#91e3c2',
+  sx: {
+    backgroundColor: '#91e3c2',
+    wordBreak: 'break-word',
+    whiteSpace: 'pre-line'
+  }
 };
 
 export const remoteChatStyle = {
   ...chatBubbleStyle,
-  left: 10,
-  backgroundColor: '#42f5ad',
+  sx: {
+    backgroundColor: '#42f5ad',
+    whiteSpace: 'pre-line',
+    wordBreak: 'break-word'
+  }
 };

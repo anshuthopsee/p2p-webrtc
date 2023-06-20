@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { PC } from "../AppContextProvider";
 import { Box, TextField, Button } from '@mui/material';
+import ListItem from '@mui/material/ListItem';
 import SendIcon from '@mui/icons-material/Send';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -13,6 +14,7 @@ import {
   chatStyle,
   expandButtonStyle,
   expandIconStyle,
+  chatWrapper,
   localChatStyle,
   remoteChatStyle
 } from './styling';
@@ -27,13 +29,15 @@ const Chat = () => {
   };
 
   const handleSend = () => {
-    PC.sendChannel.send(text);
+    if (text) {
+      PC.sendChannel.send(text);
 
-    setChatMessages((prevState) => {
-      return prevState.concat({local: text});
-    });
+      setChatMessages((prevState) => {
+        return prevState.concat({local: text});
+      });
 
-    setText("");
+      setText("");
+    };
   };
 
   const handleOnTextChange = (e) => {
@@ -55,14 +59,20 @@ const Chat = () => {
   };
 
   const renderChatMessages = () => {
-    let top = -15
     return chatMessages.map((chat, i) => {
-      top+=45
       if (chat.local) {
-        return <Box key={i} {...localChatStyle} top={`${top}px`}>{chat.local}</Box>
+        return (
+        <Box key={i} {...chatWrapper} justifyContent={'flex-end'}>
+          <Box {...localChatStyle}>{chat.local}</Box>
+        </Box>
+        );
       } else if (chat.remote) {
-        return <Box key={i} {...remoteChatStyle} top={`${top}px`}>{chat.remote}</Box>
-      }
+        return (
+        <Box key={i} {...chatWrapper} justifyContent={'flex-start'}> 
+          <Box {...remoteChatStyle}>{chat.remote}</Box>
+        </Box>
+        );
+      };
     });
   };
 
@@ -87,7 +97,7 @@ const Chat = () => {
       </Box>
       <Box {...containerStyle}>
         <TextField 
-          {...textFieldStyle} 
+          {...textFieldStyle}
           label={'send-a-message'}
           value={text}
           onChange={handleOnTextChange}
