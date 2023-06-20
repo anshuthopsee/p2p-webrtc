@@ -16,8 +16,8 @@ export default class P2P {
   };
 
   createPeerConnection = async () => {
-    if (typeof Ephy === undefined) var Ephy;
-    
+    if (typeof Ephy === "undefined") var Ephy;
+
     this.peerConnection = new RTCPeerConnection(this.configuration);
     this.remoteStream = new MediaStream();
     this.openDataChannel();
