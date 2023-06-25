@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "./AppContextProvider";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -6,7 +6,9 @@ import Slide from "@mui/material/Slide";
 
 export default function Toast() {
     const { toastState, setToastState } = useContext(AppContext);
-    const handleClose = () => {
+
+    useEffect(() => {
+      const timerId = setTimeout(() => {
         setToastState((prevState) => {
           return {
             show: false,
@@ -14,13 +16,14 @@ export default function Toast() {
             severity: prevState.severity
           };
         });
-    };
+      }, 10000);
+
+      return () => clearTimeout(timerId);
+    }, [toastState]);
 
     return (
       <Snackbar 
-        open={toastState.show} 
-        onClose={handleClose}
-        autoHideDuration={10000} 
+        open={toastState.show}
         TransitionComponent={Slide}
         disableWindowBlurListener
       >

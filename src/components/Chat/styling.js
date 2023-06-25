@@ -78,6 +78,7 @@ export const chatStyle = (expanded) => {
     minHeight: '15vh',
     width: '100%',
     position: 'absolute',
+    zIndex: 3,
     border: '1px solid lightgray',
     backgroundColor: 'white',
     opacity: 0.8,
@@ -86,8 +87,10 @@ export const chatStyle = (expanded) => {
       height: expanded ? '55vh' : '15vh',
       top: expanded ? '-40vh' : '0',
       overflowY: 'scroll',
-      transition: 'all 0.2s ease-out',
       background: 'repeating-linear-gradient( 45deg, #dcdede, #dcdede 5px, #ffffff 5px, #ffffff 25px )',
+      // '& ::-webkit-scrollbar': {
+      //   backgroundColor: 'white'
+      // }, 
     }
   };
 };
@@ -104,8 +107,7 @@ export const expandButtonStyle = (expanded) => {
       ':hover': {
         backgroundColor: '#42f5ad'
       },
-      zIndex: 2,
-      transition: 'top 0.2s ease-out'
+      zIndex: 4
     }
   };
 };

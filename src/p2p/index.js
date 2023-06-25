@@ -16,8 +16,6 @@ export default class P2P {
   };
 
   createPeerConnection = async () => {
-    if (typeof Ephy === "undefined") var Ephy;
-
     this.peerConnection = new RTCPeerConnection(this.configuration);
     this.remoteStream = new MediaStream();
     this.openDataChannel();
@@ -139,5 +137,17 @@ export default class P2P {
         throw new Error(err);
       };
     };
+  };
+
+  pauseResumeVideo = (bool) => {
+    this.localStream.getVideoTracks().forEach((track) => {
+      track.enabled = bool;
+    });
+  };
+
+  pauseResumeAudio = (bool) => {
+    this.localStream.getAudioTracks().forEach((track) => {
+      track.enabled = bool;
+    });
   };
 };

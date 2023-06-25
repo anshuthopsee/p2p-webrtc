@@ -77,7 +77,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    console.log(chatMessages)
     document.addEventListener('recieved-message', handleMessageRecieved);
     return () => document.removeEventListener(
       'recieved-message', 
