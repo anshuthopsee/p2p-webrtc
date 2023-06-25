@@ -61,7 +61,7 @@ export default class P2P {
             });
             document.dispatchEvent(recievedMessage);
           };
-        }
+        };
       };
       return true;
 
@@ -100,7 +100,7 @@ export default class P2P {
     const success = await this.createPeerConnection();
     if (!success) {
       throw new Error("Camera/Microphone permission denied.");
-    }
+    };
   };
 
   createOffer = async () => {
