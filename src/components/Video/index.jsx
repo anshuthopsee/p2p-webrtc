@@ -23,6 +23,7 @@ const Video = () => {
   const handleLocStreamAvailable = () => {
     if (!localVideoRef.current.srcObject) {
       localVideoRef.current.srcObject = PC.localStream;
+      localVideoRef.current.muted = true;
       localVideoRef.current.play();
       setIsVideoOn(true);
       setIsMicOn(true);
