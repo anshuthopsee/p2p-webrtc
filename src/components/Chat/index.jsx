@@ -80,7 +80,7 @@ const Chat = () => {
   useEffect(() => {
     const parentContainer = chatContainerRef.current;    
     const lastChild = parentContainer.lastElementChild;
-    if (lastChild) {
+    if (lastChild && !expanded) {
       parentContainer.scrollTo({
         top: lastChild.offsetTop+20,
         behavior: 'smooth'
@@ -92,7 +92,7 @@ const Chat = () => {
       'recieved-message', 
       handleMessageRecieved
     );
-  }, [chatMessages]);
+  }, [chatMessages, expanded]);
 
   return (
     <>
