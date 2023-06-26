@@ -23,6 +23,7 @@ const Chat = () => {
   const [expanded, setExpanded] = useState(false);
   const [text, setText] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const chatContainerRef = useRef();
 
   const handleExpand = () => {
     setExpanded(!expanded)
@@ -77,6 +78,15 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    const parentContainer = chatContainerRef.current;    
+    const lastChild = parentContainer.lastElementChild;
+    if (lastChild) {
+      parentContainer.scrollTo({
+        top: lastChild.offsetTop+20,
+        behavior: 'smooth'
+      });
+    };
+
     document.addEventListener('recieved-message', handleMessageRecieved);
     return () => document.removeEventListener(
       'recieved-message', 
@@ -90,7 +100,10 @@ const Chat = () => {
         <Button {...expandButtonStyle(expanded)} onClick={handleExpand}>
           {renderIcon()}
         </Button>
-        <Box {...chatStyle(expanded)}>
+        <Box 
+          ref={chatContainerRef}
+          {...chatStyle(expanded)}
+        >
           {renderChatMessages()}
         </Box>
       </Box>

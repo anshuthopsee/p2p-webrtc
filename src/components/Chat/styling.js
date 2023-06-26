@@ -88,6 +88,7 @@ export const chatStyle = (expanded) => {
       top: expanded ? '-40vh' : '0',
       overflowY: 'scroll',
       background: 'repeating-linear-gradient( 45deg, #dcdede, #dcdede 5px, #ffffff 5px, #ffffff 25px )',
+      scrollSnapType: 'y mandatory',
       // '& ::-webkit-scrollbar': {
       //   backgroundColor: 'white'
       // }, 
@@ -131,7 +132,10 @@ const chatBubbleStyle = {
   padding: '10px 15px',
   margin: '5px 10px', 
   color: 'black',
-  borderRadius: '15px'
+  borderRadius: '15px',
+  sx:{
+    scrollSnapAlign: 'start'
+  }
 };
 
 export const chatWrapper = {
