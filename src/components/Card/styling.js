@@ -65,6 +65,16 @@ export const boxStyle = (width, container=false) => {
   };
 };
 
+export const linkStyle = {
+  display: 'flex',
+  gap: '5px',
+  alignItems: 'center',
+  sx: {
+    color: 'black',
+    textDecoration: 'none'
+  }
+};
+
 export const buttonStyle = {
   sx: {
     width: '100%',

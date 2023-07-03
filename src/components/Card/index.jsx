@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../AppContextProvider";
 import { PC } from "../AppContextProvider";
-import { Box, Button, Typography } from '@mui/material/';
+import { Box, Button, Typography, Link } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/styles';
+import GitHubIcon  from "@mui/icons-material/GitHub";
 import CreateOffer from "./createOffer";
 import CreateAnswer from "./createAnswer";
 import AcceptOffer from "./acceptOffer";
@@ -11,6 +12,7 @@ import {
   cardStyle,
   backgroundStyle,
   boxStyle,
+  linkStyle,
   buttonStyle,
   typographyTheme
 } from "./styling";
@@ -70,7 +72,15 @@ const Card = () => {
     <Box {...backgroundStyle}>
       <Box {...cardStyle}>
         <ThemeProvider theme={typographyTheme}>
-          <Typography variant="h2">p2p-webrtc</Typography>
+          <Typography variant="h2">
+            <Link 
+              href="https://github.com/anshuthopsee/p2p-webrtc"
+              {...linkStyle}
+            >
+              <GitHubIcon/> 
+              p2p-webrtc 
+            </Link>
+            </Typography>
           <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as peer to peer exchange of Video/Audio, Text and Files.</Typography>
         </ThemeProvider>
         {renderContent()}

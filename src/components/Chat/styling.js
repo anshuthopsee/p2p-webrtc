@@ -14,7 +14,6 @@ export const containerStyle = {
   alignItems: 'flex-end',
   columnGap: 1,
   width: '100%',
-  marginBottom: '20px',
   position: 'relative'
 };
 
