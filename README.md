@@ -8,7 +8,7 @@ A react website, that demonstrates the capabilities of peer to peer communicatio
 4. Click on Connect to Peer button, that will appear in one of the tabs.
 5. Both the tabs are now connected.
 
-Note, you connect two seperate devices as well. But make sure, both of them are on the same network, otherwise the created answer will time out in about 10 seconds. If both the devices are on the same network, you still have to make the Offer/Answer exchange quick.
+Note, you can connect two seperate devices as well. But make sure, both of them are on the same network, otherwise the created answer will time out in about 10 seconds. If both the devices are on the same network, you still have to make the Offer/Answer exchange quick.
 
 ## Features
 1. Video/Audio exchange (Can be disabled).
