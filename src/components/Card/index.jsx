@@ -3,10 +3,10 @@ import { AppContext } from "../AppContextProvider";
 import { PC } from "../AppContextProvider";
 import { Box, Button, Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/styles';
-import CreateOffer from "./CreateOffer";
-import CreateAnswer from "./CreateAnswer";
-import AcceptOffer from "./AcceptOffer";
-import AcceptAnswer from "./AcceptAnswer";
+import CreateOffer from "./createOffer";
+import CreateAnswer from "./createAnswer";
+import AcceptOffer from "./acceptOffer";
+import AcceptAnswer from "./acceptAnswer";
 import { 
   cardStyle,
   backgroundStyle,
