@@ -92,4 +92,4 @@ const ChatMessages = (
   );
 };
 
-export default ChatMessages
+export default ChatMessages;

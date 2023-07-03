@@ -2,6 +2,7 @@ export default class P2P {
   constructor() {
     this.peerConnection;
     this.sendChannel;
+    this.receiveChannel
     this.localStream;
     this.remoteStream;
     this.onaddstream;
@@ -19,7 +20,7 @@ export default class P2P {
     this.peerConnection = new RTCPeerConnection(this.configuration);
     this.remoteStream = new MediaStream();
     this.openSendChannel();
-    this.openRecieveChannel();
+    this.openReceiveChannel();
 
     this.peerConnection.addEventListener('connectionstatechange', () => {
       console.log('connection-state:', this.peerConnection.connectionState);
@@ -64,13 +65,13 @@ export default class P2P {
     this.sendChannel.binaryType = "arraybuffer";
   };
 
-  openRecieveChannel = () => {
+  openReceiveChannel = () => {
     this.peerConnection.ondatachannel = (e) => {
       if (e.channel.label === "data-channel") {
-        this.recieveChannel = e.channel;
+        this.receiveChannel = e.channel;
         console.log('data-channel-established');
 
-        this.recieveChannel.onmessage = (e) => {
+        this.receiveChannel.onmessage = (e) => {
           const { data } = e;
           const base64Payload = JSON.parse(data);
           let payload;

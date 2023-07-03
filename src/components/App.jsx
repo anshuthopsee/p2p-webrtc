@@ -42,7 +42,8 @@ function App() {
     gap: '5px',
     alignItems: 'center',
     sx: {
-      color: 'black'
+      color: 'black',
+      textDecoration: 'none'
     }
   };
 

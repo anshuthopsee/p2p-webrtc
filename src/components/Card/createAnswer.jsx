@@ -66,4 +66,4 @@ const CreateAnswer = () => {
   );
 }
 
-export default CreateAnswer
+export default CreateAnswer;

@@ -80,4 +80,4 @@ const AcceptOffer = () => {
   );
 };
 
-export default AcceptOffer
+export default AcceptOffer;

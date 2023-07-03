@@ -65,4 +65,4 @@ const CreateOffer = () => {
   );
 };
 
-export default CreateOffer
+export default CreateOffer;
