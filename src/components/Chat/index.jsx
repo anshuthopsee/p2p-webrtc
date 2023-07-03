@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { PC } from "../AppContextProvider";
 import { Box, TextField, Button } from '@mui/material';
-import ListItem from '@mui/material/ListItem';
+import FileInput from './FileInput';
+import ChatMessages from './ChatMessages';
 import SendIcon from '@mui/icons-material/Send';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -11,38 +12,107 @@ import {
   sendButtonStyle, 
   sendIconStyle,
   containerStyle,
+  fieldContainerStyle,
   chatStyle,
   expandButtonStyle,
-  expandIconStyle,
-  chatWrapper,
-  localChatStyle,
-  remoteChatStyle
+  expandIconStyle
 } from './styling';
 
 const Chat = () => {
   const [expanded, setExpanded] = useState(false);
   const [text, setText] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [sendProgress, setSendProgress] = useState(0);
+  const [receiveProgress, setReceiveProgress] = useState(0);
+  const [sendComplete, setSendComplete] = useState(true);
+  const [file, setFile] = useState(null);
   const chatContainerRef = useRef();
+  const fileChunksRef = useRef({});
 
   const handleExpand = () => {
-    setExpanded(!expanded)
+    setExpanded(!expanded);
   };
 
   const handleSend = () => {
-    if (text) {
-      PC.sendChannel.send(text);
+    if (text || file) {
+      const payload = {
+        file: null, 
+        chat: text, 
+        index: 
+        chatMessages.length
+      };
+
+      if (file) {
+        payload.file = {
+          name: file.name,
+          size: file.size,
+          chunk: file,
+          complete: false
+        };
+        setSendComplete(false);
+      };
+
+      PC.send({...payload}, setSendProgress).then(() => {
+        if (payload.file) {
+          setChatMessages((prevState) => {
+            const current = prevState[payload.index];
+            current.local.file.complete = true;
+            return [...prevState];
+          });
+          setSendComplete(true);
+          setSendProgress(0);
+        };
+      });
 
       setChatMessages((prevState) => {
-        return prevState.concat({local: text});
+        return prevState.concat({local: payload});
       });
 
       setText("");
+      setFile(null);
     };
   };
 
   const handleOnTextChange = (e) => {
     setText(e.target.value);
+  };
+
+  const handleMessageRecieved = (e) => {
+    const { message } = e.detail;
+    const { file, index } = message;
+
+    if (file) {
+      if (!fileChunksRef.current.hasOwnProperty(index)) {
+        fileChunksRef.current[index] = [];
+        setChatMessages((prevState) => {
+          return prevState.concat({ remote: message });
+        });
+      };
+
+      if (file.complete) {
+        setChatMessages((prevState) => {
+          prevState[index].remote.file.complete = true;
+          return [...prevState];
+        });
+        setReceiveProgress(0);
+      };
+
+      fileChunksRef.current[index].push(file.chunk[0]);
+      
+      setReceiveProgress((prevState) => {
+        const chunkSize = 16*1024;
+        let receivedSize = fileChunksRef.current[index].length*chunkSize;
+        receivedSize = receivedSize > file.size ? file.size : receivedSize;
+        const percentage = Number(((receivedSize/file.size)*100).toFixed(0));
+        if (percentage !== prevState) return percentage;
+        return prevState;
+      });
+      return;
+    };
+  
+    setChatMessages((prevState) => {
+      return prevState.concat({ remote: message });
+    });
   };
 
   const renderIcon = () => {
@@ -52,42 +122,13 @@ const Chat = () => {
     return <ExpandLessIcon {...expandIconStyle}/>
   };
 
-  const handleMessageRecieved = (e) => {
-    const { detail } = e;
-    setChatMessages((prevState) => {
-      return prevState.concat({remote: detail.message});
-    });
-  };
-
-  const renderChatMessages = () => {
-    return chatMessages.map((chat, i) => {
-      if (chat.local) {
-        return (
-        <Box key={i} {...chatWrapper} justifyContent={'flex-end'}>
-          <Box {...localChatStyle}>{chat.local}</Box>
-        </Box>
-        );
-      } else if (chat.remote) {
-        return (
-        <Box key={i} {...chatWrapper} justifyContent={'flex-start'}> 
-          <Box {...remoteChatStyle}>{chat.remote}</Box>
-        </Box>
-        );
-      };
-    });
-  };
+  
 
   useEffect(() => {
-    const parentContainer = chatContainerRef.current;    
-    const lastChild = parentContainer.lastElementChild;
-    if (lastChild && !expanded) {
-      parentContainer.scrollTo({
-        top: lastChild.offsetTop+20,
-        behavior: 'smooth'
-      });
-    };
-
-    document.addEventListener('recieved-message', handleMessageRecieved);
+    document.addEventListener(
+      'recieved-message', 
+      handleMessageRecieved
+    );
     return () => document.removeEventListener(
       'recieved-message', 
       handleMessageRecieved
@@ -97,26 +138,40 @@ const Chat = () => {
   return (
     <>
       <Box {...chatBoxStyle}>
-        <Button {...expandButtonStyle(expanded)} onClick={handleExpand}>
+        <Button 
+          {...expandButtonStyle(expanded)} 
+          onClick={handleExpand}>
           {renderIcon()}
         </Button>
         <Box 
           ref={chatContainerRef}
           {...chatStyle(expanded)}
         >
-          {renderChatMessages()}
+          <ChatMessages
+            chats={chatMessages}
+            sendProgress={sendProgress}
+            receiveProgress={receiveProgress}
+            fileChunksRef={fileChunksRef}
+          />
         </Box>
       </Box>
       <Box {...containerStyle}>
-        <TextField 
-          {...textFieldStyle}
-          label={'send-a-message'}
-          value={text}
-          onChange={handleOnTextChange}
+        <Box {...fieldContainerStyle}>
+          <TextField 
+            {...textFieldStyle}
+            label={'send-a-message'}
+            value={text}
+            onChange={handleOnTextChange}
+          />
+        </Box>
+        <FileInput
+          file={file}
+          setFile={setFile}
         />
         <Button 
           {...sendButtonStyle}
           onClick={handleSend}
+          disabled={!sendComplete}
         >
           <SendIcon {...sendIconStyle}/>
         </Button>

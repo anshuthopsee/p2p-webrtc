@@ -10,9 +10,10 @@ import Chat from './Chat';
 function App() {
   const containerStyling = {
     display: 'flex',
+    maxWidth: 'md',
     sx: {
       minHeight: '100vh',
-      maxWidth: '1000px',
+      // maxWidth: '800px',
     }
   };
 

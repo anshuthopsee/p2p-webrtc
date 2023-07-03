@@ -3,10 +3,10 @@ import { AppContext } from "../AppContextProvider";
 import { PC } from "../AppContextProvider";
 import { Box, Button, Typography } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/styles';
-import CreateOffer from "./createOffer";
-import CreateAnswer from "./createAnswer";
-import AcceptOffer from "./acceptOffer";
-import AcceptAnswer from "./acceptAnswer";
+import CreateOffer from "./CreateOffer";
+import CreateAnswer from "./CreateAnswer";
+import AcceptOffer from "./AcceptOffer";
+import AcceptAnswer from "./AcceptAnswer";
 import { 
   cardStyle,
   backgroundStyle,
@@ -28,16 +28,16 @@ const Card = () => {
     return (
       <>
         <Box {...boxStyle(90, true)}>
-            <Button {...buttonStyle}
-              disabled={disabled} 
-              onClick={() => setAppState('create-offer')}>
-                Create Offer
+          <Button {...buttonStyle}
+            disabled={disabled} 
+            onClick={() => setAppState('create-offer')}>
+              Create Offer
+          </Button>
+          <Button {...buttonStyle}
+            disabled={disabled}
+            onClick={() => setAppState('accept-offer')}>
+              Accept Offer
             </Button>
-            <Button {...buttonStyle}
-              disabled={disabled}
-              onClick={() => setAppState('accept-offer')}>
-                Accept Offer
-              </Button>
         </Box>
       </>
     );
@@ -71,7 +71,7 @@ const Card = () => {
       <Box {...cardStyle}>
         <ThemeProvider theme={typographyTheme}>
           <Typography variant="h2">p2p-webrtc</Typography>
-          <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as Video, Audio, Text & Files exchange, peer to peer.</Typography>
+          <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as peer to peer exchange of Video/Audio, Text and Files.</Typography>
         </ThemeProvider>
         {renderContent()}
       </Box>

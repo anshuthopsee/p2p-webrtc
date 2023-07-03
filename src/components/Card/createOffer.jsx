@@ -41,7 +41,7 @@ const CreateOffer = () => {
   return (
     <Box {...boxStyle(90, true)}>
       <Typography variant={'h6'}>Copy & Send Offer to Peer</Typography>
-      {/* <QRCode value={offer}/> */}
+      {/* <QrCode value={offer}/> */}
       <Box {...containerStyle}>
         <TextField {...textFieldStyle} 
         label={'copy-sdp-offer'}

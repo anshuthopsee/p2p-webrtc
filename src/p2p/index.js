@@ -18,7 +18,8 @@ export default class P2P {
   createPeerConnection = async () => {
     this.peerConnection = new RTCPeerConnection(this.configuration);
     this.remoteStream = new MediaStream();
-    this.openDataChannel();
+    this.openSendChannel();
+    this.openRecieveChannel();
 
     this.peerConnection.addEventListener('connectionstatechange', () => {
       console.log('connection-state:', this.peerConnection.connectionState);
@@ -46,23 +47,6 @@ export default class P2P {
         const remoteStreamAvailable = new Event('remote-stream-available');
         document.dispatchEvent(remoteStreamAvailable);
       };
-
-      this.peerConnection.ondatachannel = (e) => {
-        if (e.channel.label === "data-channel") {
-          this.recieveChannel = e.channel;
-          console.log('data-channel-established');
-
-          this.recieveChannel.onmessage = (e) => {
-            const { data } = e;
-            const recievedMessage = new CustomEvent('recieved-message', {
-              detail: {
-                message: data
-              }
-            });
-            document.dispatchEvent(recievedMessage);
-          };
-        };
-      };
       return true;
 
     } catch(err) {
@@ -71,13 +55,58 @@ export default class P2P {
     };
   };
 
-  openDataChannel = () => {
+  openSendChannel = () => {
     let options = { 
       reliable: true 
    }; 
     
     this.sendChannel = this.peerConnection.createDataChannel('data-channel', options);
     this.sendChannel.binaryType = "arraybuffer";
+  };
+
+  openRecieveChannel = () => {
+    this.peerConnection.ondatachannel = (e) => {
+      if (e.channel.label === "data-channel") {
+        this.recieveChannel = e.channel;
+        console.log('data-channel-established');
+
+        this.recieveChannel.onmessage = (e) => {
+          const { data } = e;
+          const base64Payload = JSON.parse(data);
+          let payload;
+
+          // Convert base64 string back to ArrayBuffer
+          if (base64Payload.file) {
+            const base64String = base64Payload.file.chunk[0];
+            const byteString = atob(base64String);
+            const buffer = new Uint8Array(byteString.length);
+            for (let i = 0; i < byteString.length; i++) {
+              buffer[i] = byteString.charCodeAt(i);
+            };
+            // Create a new object with the ArrayBuffer
+            payload = {
+              file: {
+                name: base64Payload.file.name,
+                size: base64Payload.file.size,
+                chunk: [buffer.buffer],
+                complete: base64Payload.file.complete
+              },
+              chat: base64Payload.chat,
+              index: base64Payload.index
+            };
+          } else {
+            payload = {...base64Payload};
+          };
+          
+          const recievedMessage = new CustomEvent('recieved-message', {
+            detail: {
+              message: payload
+            }
+          });
+          document.dispatchEvent(recievedMessage);
+        };
+      };
+    };
   };
 
   getIceCandidates = () => {
@@ -148,6 +177,66 @@ export default class P2P {
   pauseResumeAudio = (bool) => {
     this.localStream.getAudioTracks().forEach((track) => {
       track.enabled = bool;
+    });
+  };
+
+  send = async (payload, setSendProgress) => {
+    return new Promise(async (resolve) => {
+      const { file, chat, index } = payload;
+
+      if (file?.name) {
+        let buffer = await file.chunk.arrayBuffer();
+        const chunkSize = 16 * 1024;
+
+        const sendInChunks = (firstRun, prevPayload) => {
+          if (!buffer.byteLength && !firstRun) {
+            prevPayload.file.chunk = [""];
+            prevPayload.file.complete = true;
+            const prevPayloadAsStr = JSON.stringify(prevPayload);
+            this.sendChannel.send(prevPayloadAsStr);
+            resolve();
+            return;
+          };
+            
+          const chunk = buffer.slice(0, chunkSize);
+          buffer = buffer.slice(chunkSize, buffer.byteLength);
+          const base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(chunk)));
+
+          // Create a new object with the base64 string
+          const payloadWithBase64 = {
+            file: {
+              name: file.name,
+              size: file.size,
+              chunk: [base64String],
+              complete: false
+            },
+            chat: chat,
+            index: index
+          };
+
+          const payloadAsStr = JSON.stringify(payloadWithBase64);
+          this.sendChannel.send(payloadAsStr);
+
+          if (this.sendChannel.bufferedAmount > this.sendChannel.bufferedAmountLowThreshold) {
+            this.sendChannel.onbufferedamountlow = () => {
+              this.sendChannel.onbufferedamountlow = null;
+              setTimeout(() => {
+                sendInChunks(false, {...payloadWithBase64});
+              }, 10);
+            };
+          };
+
+          const percentage = Number((((file.size - buffer.byteLength)/file.size)*100).toFixed(0));
+          setSendProgress((prevState) => {
+            if (percentage !== prevState) return percentage;
+            return prevState;
+          });
+        };
+        sendInChunks(true);
+      } else {
+        const payloadAsStr = JSON.stringify(payload);
+        this.sendChannel.send(payloadAsStr);
+      };
     });
   };
 };
