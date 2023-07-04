@@ -77,7 +77,7 @@ const Chat = () => {
     setText(e.target.value);
   };
 
-  const handleMessageRecieved = (e) => {
+  const handleMessageReceived = (e) => {
     const { message } = e.detail;
     const { file, index } = message;
 
@@ -126,12 +126,12 @@ const Chat = () => {
 
   useEffect(() => {
     document.addEventListener(
-      'recieved-message', 
-      handleMessageRecieved
+      'received-message', 
+      handleMessageReceived
     );
     return () => document.removeEventListener(
-      'recieved-message', 
-      handleMessageRecieved
+      'received-message', 
+      handleMessageReceived
     );
   }, [chatMessages, expanded]);
 

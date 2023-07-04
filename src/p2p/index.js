@@ -2,7 +2,7 @@ export default class P2P {
   constructor() {
     this.peerConnection;
     this.sendChannel;
-    this.receiveChannel
+    this.receiveChannel;
     this.localStream;
     this.remoteStream;
     this.onaddstream;
@@ -57,7 +57,7 @@ export default class P2P {
   };
 
   openSendChannel = () => {
-    let options = { 
+    const options = { 
       reliable: true 
    }; 
     
@@ -99,12 +99,12 @@ export default class P2P {
             payload = {...base64Payload};
           };
           
-          const recievedMessage = new CustomEvent('recieved-message', {
+          const receivedMessage = new CustomEvent('received-message', {
             detail: {
               message: payload
             }
           });
-          document.dispatchEvent(recievedMessage);
+          document.dispatchEvent(receivedMessage);
         };
       };
     };
