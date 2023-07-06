@@ -133,9 +133,19 @@ export const chatStyle = (expanded) => {
       backgroundSize: '20px 20px',
       // background: 'repeating-linear-gradient( 45deg, #dcdede, #dcdede 5px, #ffffff 5px, #ffffff 25px )',
       scrollSnapType: 'y mandatory',
-      // '& ::-webkit-scrollbar': {
-      //   backgroundColor: 'white'
-      // }, 
+      '&::-webkit-scrollbar': {
+        width: 'auto',
+      },
+      '&::-webkit-scrollbar-track': {
+        background: '#f1f1f1',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: '#888',
+        borderRadius: '4px',
+      },
+      '&::-webkit-scrollbar-thumb:hover': {
+        background: '#555',
+      },
     }
   };
 };
