@@ -37,7 +37,11 @@ export default class P2P {
           video: true
         }
       );
-      this.peerConnection.addStream(this.localStream);
+
+      this.localStream.getTracks().forEach((track) => {
+        this.peerConnection.addTrack(track, this.localStream);
+      });
+      
       const localStreamAvailable = new Event('local-stream-available');
       document.dispatchEvent(localStreamAvailable);
 
