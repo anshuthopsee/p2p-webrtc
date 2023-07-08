@@ -12,6 +12,7 @@ export const videoStyles = (num) => {
 
 export const video1BoxStyles = {
   height: '60vh',
+  minHeight: '200px',
   width: '100%',
   marginTop: '2rem',
   position: 'relative',
@@ -21,14 +22,14 @@ export const video1BoxStyles = {
 };
 
 export const video2BoxStyles = {
-  height: '180px',
-  width: '26%',
-  minWidth: '120px',
+  height: '140px',
+  width: '22%',
+  minWidth: '100px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   position: 'absolute',
-  right: '22px',
+  right: '20px',
   bottom: '16px'
 };
 

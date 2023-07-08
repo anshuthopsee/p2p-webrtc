@@ -1,7 +1,7 @@
 export const chatBoxStyle = {
   display: 'flex',
   height: '15vh',
-  minHeight: '15vh',
+  minHeight: '100px',
   width: '100%',
   rowGap: 1,
   position: 'relative',
@@ -123,8 +123,8 @@ export const chatStyle = (expanded) => {
     opacity: 0.8,
     boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
     sx: {
-      height: expanded ? '55vh' : '15vh',
-      top: expanded ? '-40vh' : '0',
+      height: expanded ? '55vh' : 'max(15vh, 100px)',
+      top: expanded ? 'calc(-55vh + max(15vh, 100px))' : '0',
       overflowY: 'scroll',
       backgroundColor: '#ffffff',
       opacity: 1,
