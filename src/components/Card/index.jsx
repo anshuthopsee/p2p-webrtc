@@ -4,10 +4,10 @@ import { PC } from "../AppContextProvider";
 import { Box, Button, Typography, Link } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon  from "@mui/icons-material/GitHub";
-import CreateOffer from "./createOffer";
-import CreateAnswer from "./createAnswer";
-import AcceptOffer from "./acceptOffer";
-import AcceptAnswer from "./acceptAnswer";
+import CreateOffer from "./CreateOffer";
+import CreateAnswer from "./CreateAnswer";
+import AcceptOffer from "./AcceptOffer";
+import AcceptAnswer from "./AcceptAnswer";
 import { 
   cardStyle,
   backgroundStyle,
