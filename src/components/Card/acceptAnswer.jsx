@@ -29,8 +29,8 @@ const AcceptAnswer = () => {
   };
 
   const handleConnectToPeer = async () => {
-    const dataAsJSON = JSON.parse(data);
     try {
+      const dataAsJSON = JSON.parse(data);
       await PC.acceptAnswer(dataAsJSON);
       console.log('accepted-answer');
     } catch {

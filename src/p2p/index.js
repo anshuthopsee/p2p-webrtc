@@ -24,10 +24,6 @@ export default class P2P {
 
     this.peerConnection.addEventListener('connectionstatechange', () => {
       console.log('connection-state:', this.peerConnection.connectionState);
-      if (this.peerConnection.connectionState === 'connected') {
-        const peersConnected = new Event('peers-connected');
-        document.dispatchEvent(peersConnected);
-      };
     });
 
     try {
@@ -126,6 +122,10 @@ export default class P2P {
 
       this.peerConnection.oniceconnectionstatechange = () => {
         console.log('ice-connection-state:', this.peerConnection.iceConnectionState);
+        if (this.peerConnection.iceConnectionState === 'connected') {
+          const peersConnected = new Event('peers-connected');
+          document.dispatchEvent(peersConnected);
+        };
       };
     });
   };
