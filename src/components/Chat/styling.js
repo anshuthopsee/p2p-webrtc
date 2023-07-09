@@ -155,7 +155,7 @@ export const expandButtonStyle = (expanded) => {
     size: 'small',
     sx: {
       position: 'absolute',
-      top: expanded ? 'calc(-40vh - 30px)' : '-30px',
+      top: expanded ? 'calc(-55vh + max(15vh, 100px) - 30px)' : '-30px',
       width: 'fit-content',
       height: '30px',
       backgroundColor: '#91e3c2',
