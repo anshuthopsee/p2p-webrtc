@@ -5,7 +5,6 @@ export default class P2P {
     this.receiveChannel;
     this.localStream;
     this.remoteStream;
-    this.onaddstream;
     this.configuration = {
       iceServers: [
         {

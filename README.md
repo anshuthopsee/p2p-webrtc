@@ -1,4 +1,4 @@
-A react website, that demonstrates the capabilities of peer to peer communication through WebRTC. It is a serverless implementation, so manual exchange of Offer/Answer is involved. (Work in progress).
+A React website, that demonstrates the capabilities of peer to peer communication through WebRTC. It is a serverless implementation, so manual exchange of Offer/Answer is involved. (Work in progress).
 
 ## How to use
 1. Open the site in two seperate tabs.
