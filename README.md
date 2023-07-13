@@ -1,5 +1,8 @@
 A React website, that demonstrates the capabilities of peer to peer communication through WebRTC. It is a serverless implementation, so manual exchange of Offer/Answer is involved. (Work in progress).
 
+## Demo
+![Usage demo](demo/p2p-webrtc.gif)
+
 ## How to use
 1. Open the site in two seperate tabs.
 3. Provide access to camera and microphone (This is required because, the created Answer will timeout in 10 seconds otherwise).
