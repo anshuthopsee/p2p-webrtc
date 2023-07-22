@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext } from "./AppContextProvider";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -48,7 +48,6 @@ export default function Toast() {
         severity={toastState.severity} 
         sx={{ width: '100%' }}
       >
-        {console.log(toastState.key)}
         {toastState.message}
       </Alert>
       </Snackbar>
