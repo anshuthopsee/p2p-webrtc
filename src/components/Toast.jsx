@@ -31,11 +31,6 @@ export default function Toast() {
       });
     };
 
-    useEffect(() => {
-    
-
-    }, [toastState.message, toastState.show]);
-
     return (
       <Snackbar
         key={toastState.key}
