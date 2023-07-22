@@ -26,13 +26,29 @@ const CreateAnswer = () => {
       setToastState({
         show: true,
         severity: "success",
-        message: "Answer copied to clipboard."
+        message: "Answer copied to clipboard.",
+        key: new Date().getTime()
       });
     };
   };
 
   const handlePeersConnected = () => {
     setAppState('peers-connected');
+    setToastState({
+      show: true,
+      message: "Peer Connected.",
+      severity: "success",
+      key: new Date().getTime()
+    });
+  };
+
+  const handlePeersDisconnected = () => {
+    setToastState({
+      show: true,
+      message: "Peer Disconnected.",
+      severity: "error",
+      key: new Date().getTime()
+    });
   };
 
   useEffect(async () => {
@@ -41,7 +57,11 @@ const CreateAnswer = () => {
     setAnswer(result);
 
     document.addEventListener('peers-connected', handlePeersConnected);
-    return () => document.removeEventListener('peers-connected', handlePeersConnected);
+    document.addEventListener('peers-disconnected', handlePeersDisconnected);
+    return () => {
+      document.removeEventListener('peers-connected', handlePeersConnected);
+      document.addEventListener('peers-disconnected', handlePeersDisconnected);
+    };
   }, []);
 
   return (

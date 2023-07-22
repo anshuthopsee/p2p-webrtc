@@ -127,6 +127,9 @@ export default class P2P {
         if (this.peerConnection.iceConnectionState === 'connected') {
           const peersConnected = new Event('peers-connected');
           document.dispatchEvent(peersConnected);
+        } else if (this.peerConnection.iceConnectionState === 'disconnected') {
+          const peersDisconnected = new Event('peers-disconnected');
+          document.dispatchEvent(peersDisconnected);
         };
       };
     });

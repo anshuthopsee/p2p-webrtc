@@ -27,7 +27,8 @@ const CreateOffer = () => {
       setToastState({
         show: true,
         severity: "success",
-        message: "Offer copied to clipboard."
+        message: "Offer copied to clipboard.",
+        key: new Date().getTime()
       });
     };
   };

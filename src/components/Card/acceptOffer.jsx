@@ -42,7 +42,8 @@ const AcceptOffer = () => {
         setToastState({
           show: true,
           severity: "error",
-          message: "Not a valid offer. Please try again."
+          message: "Not a valid offer. Please try again.",
+          key: new Date().getTime()
         });
       };
     };

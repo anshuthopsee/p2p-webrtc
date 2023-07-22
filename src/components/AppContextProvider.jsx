@@ -10,7 +10,8 @@ const AppContextProvider = ({ children }) => {
   const [toastState, setToastState] = useState({
     show: false,
     severity: "info",
-    message: ""
+    message: undefined,
+    key: undefined
   });
 
   return (

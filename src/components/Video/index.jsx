@@ -43,7 +43,8 @@ const Video = () => {
       setToastState({
         show: true,
         message: !prevState ? 'Video on.' : 'Video off.',
-        severity: 'info'
+        severity: 'info',
+        key: new Date().getTime()
       });
       return !prevState;
     });
@@ -55,7 +56,8 @@ const Video = () => {
       setToastState({
         show: true,
         message: !prevState ? 'Mic on.' : 'Mic off',
-        severity: 'info'
+        severity: 'info',
+        key: new Date().getTime()
       });
       return !prevState;
     });

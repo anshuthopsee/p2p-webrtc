@@ -54,7 +54,8 @@ const Card = () => {
       setToastState({
         show: true,
         severity: "error",
-        message: "This app requires Camera/Microphone permission. Refresh the page and provide access."
+        message: "This app requires Camera/Microphone permission. Refresh the page and provide access.",
+        key: new Date().getTime()
       });
     };
   }, []);
