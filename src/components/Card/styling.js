@@ -28,7 +28,7 @@ export const cardStyle = {
     bgcolor: 'white', 
     boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;',
     borderRadius: '5px',
-    marginTop: '5rem'
+    marginTop: 'min(5rem, max(calc(50vh - 125px), 0px))'
   },
   display: 'flex',
   alignItems: 'center',
