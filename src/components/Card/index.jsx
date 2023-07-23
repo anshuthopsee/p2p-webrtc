@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../AppContextProvider";
 import { PC } from "../AppContextProvider";
-import { Box, Button, Typography, Link } from '@mui/material/';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import { ThemeProvider } from '@mui/material/styles';
 import GitHubIcon  from "@mui/icons-material/GitHub";
 import CreateOffer from "./createOffer";
@@ -26,7 +29,7 @@ const Card = () => {
 
   const [disabled, setDisabled] = useState(true);
 
-  const Select = () => {
+  const ActionSelect = () => {
     return (
       <>
         <Box {...boxStyle(90, true)}>
@@ -45,6 +48,14 @@ const Card = () => {
     );
   };
 
+  const renderCardView = () => {
+    if (appState === "action-select") return <ActionSelect/>
+    if (appState === "create-offer") return <CreateOffer/>
+    if (appState === "accept-answer") return <AcceptAnswer/>
+    if (appState === "accept-offer") return <AcceptOffer/>
+    if (appState === "create-answer") return <CreateAnswer/>
+  };
+
   useEffect(async () => {
     try {
       await PC.setup();
@@ -59,14 +70,6 @@ const Card = () => {
       });
     };
   }, []);
-
-  const renderContent = () => {
-    if (appState === "action-select") return <Select/>
-    if (appState === "create-offer") return <CreateOffer/>
-    if (appState === "accept-answer") return <AcceptAnswer/>
-    if (appState === "accept-offer") return <AcceptOffer/>
-    if (appState === "create-answer") return <CreateAnswer/>
-  };
 
   return (
     appState !== "peers-connected" ? 
@@ -84,7 +87,7 @@ const Card = () => {
             </Typography>
           <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as peer to peer exchange of Video/Audio, Text and Files.</Typography>
         </ThemeProvider>
-        {renderContent()}
+        {renderCardView()}
       </Box>
     </Box>
     : 

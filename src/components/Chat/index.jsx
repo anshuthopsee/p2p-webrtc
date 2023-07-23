@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { PC } from "../AppContextProvider";
-import { Box, TextField, Button } from '@mui/material';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import FileInput from './FileInput';
 import ChatMessages from './ChatMessages';
 import SendIcon from '@mui/icons-material/Send';

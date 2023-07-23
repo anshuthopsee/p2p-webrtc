@@ -1,7 +1,8 @@
 import { useEffect, useContext, useState, useRef } from 'react'
 import { AppContext } from '../AppContextProvider';
 import { PC } from '../AppContextProvider';
-import { Box, Button } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import { 

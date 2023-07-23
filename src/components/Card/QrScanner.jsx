@@ -1,6 +1,6 @@
 import { useCallback, useContext, useMemo, memo, useEffect } from 'react';
 import QrReader from 'react-qr-scanner';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { AppContext } from '../AppContextProvider';
 import Toast from '../Toast'
 

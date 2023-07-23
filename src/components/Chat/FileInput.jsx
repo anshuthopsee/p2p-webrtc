@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import {
