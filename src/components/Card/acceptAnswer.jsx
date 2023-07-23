@@ -83,6 +83,7 @@ const AcceptAnswer = () => {
       <Box {...boxStyle(100)}>
         <TextField {...textFieldStyle} 
         focused={data ? true : false} 
+        autoFocus
         label={'paste-sdp-answer'}
         value={data}
         onChange={handleOnChange}

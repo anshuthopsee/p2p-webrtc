@@ -12,9 +12,6 @@ import {
   textFieldStyle 
 } from './styling';
 
-
-
-
 const AcceptOffer = () => {
   const { setAppState, setToastState } = useContext(AppContext);
   const [data, setData] = useState("");
@@ -61,6 +58,7 @@ const AcceptOffer = () => {
       <Box {...boxStyle(100, true)}>
         <TextField {...textFieldStyle} 
         focused={data ? true : false} 
+        autoFocus
         label={'paste-sdp-offer'}
         value={data}
         onChange={handleOnChange}
