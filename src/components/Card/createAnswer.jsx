@@ -59,7 +59,7 @@ const CreateAnswer = () => {
     document.addEventListener('peers-disconnected', handlePeersDisconnected);
     return () => {
       document.removeEventListener('peers-connected', handlePeersConnected);
-      document.addEventListener('peers-disconnected', handlePeersDisconnected);
+      document.removeEventListener('peers-disconnected', handlePeersDisconnected);
     };
   }, []);
 
