@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { AppContext } from '../AppContextProvider';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,7 +13,7 @@ import {
 } from './styling';
 
 const AcceptAnswer = () => {
-  const { setAppState, setToastState } = useContext(AppContext);
+  const { setToastState } = useContext(AppContext);
   const [data, setData] = useState("");
   // const [rerenderFlag, setRerenderFlag] = useState(false);
 

@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { AppContext } from './AppContextProvider';
+import { AppContext, PC } from './AppContextProvider';
 import Navbar from './Navbar';
 import Toast from './Toast';
 import GitHubIcon  from '@mui/icons-material/GitHub';
@@ -69,11 +69,11 @@ function App() {
   };
 
   useEffect(() => {
-    document.addEventListener('peers-connected', handlePeersConnected);
-    document.addEventListener('peers-disconnected', handlePeersDisconnected);
+    PC.addEventListener('peers-connected', handlePeersConnected);
+    PC.addEventListener('peers-disconnected', handlePeersDisconnected);
     return () => {
-      document.removeEventListener('peers-connected', handlePeersConnected);
-      document.removeEventListener('peers-disconnected', handlePeersDisconnected);
+      PC.removeEventListener('peers-connected', handlePeersConnected);
+      PC.removeEventListener('peers-disconnected', handlePeersDisconnected);
     };
   }, []);
 

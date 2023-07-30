@@ -16,7 +16,7 @@ import {
 } from './styling';
 
 const CreateAnswer = () => {
-  const { setAppState, setToastState } = useContext(AppContext);
+  const { setToastState } = useContext(AppContext);
   const [answer, setAnswer] = useState("");
 
   const handleCopy = () => {

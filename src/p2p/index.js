@@ -1,5 +1,27 @@
-export default class P2P {
+class EventEmitter {
   constructor() {
+    this.events = {};
+  };
+
+  dispatchEvent = (e, data) => {
+    if (!this.events[e]) return;
+    this.events[e].forEach(callback => callback(data));
+  };
+
+  addEventListener = (event, callback) => {
+    if (!this.events[event]) this.events[event] = [];
+    this.events[event].push(callback);
+  };
+
+  removeEventListener = (event) => {
+    if (!thisevents[event]) return;
+    delete this.events[event];
+  };
+};
+
+export default class P2P extends EventEmitter {
+  constructor() {
+    super();
     this.peerConnection;
     this.sendChannel;
     this.receiveChannel;
@@ -27,8 +49,7 @@ export default class P2P {
     this.peerConnection.addEventListener('connectionstatechange', () => {
       console.log('connection-state:', this.peerConnection.connectionState);
       if (this.peerConnection.connectionState === "connected") {
-        const peersConnected = new Event('peers-connected');
-        document.dispatchEvent(peersConnected);
+        this.dispatchEvent('peers-connected');
       };
     });
 
@@ -44,15 +65,13 @@ export default class P2P {
         this.peerConnection.addTrack(track, this.localStream);
       });
       
-      const localStreamAvailable = new Event('local-stream-available');
-      document.dispatchEvent(localStreamAvailable);
+      this.dispatchEvent('local-stream-available');
 
       this.peerConnection.ontrack = (e) => {
         e.streams[0].getTracks().forEach((track) => {
           this.remoteStream.addTrack(track, this.remoteStream);
         });
-        const remoteStreamAvailable = new Event('remote-stream-available');
-        document.dispatchEvent(remoteStreamAvailable);
+        this.dispatchEvent('remote-stream-available');
       };
       return true;
 
@@ -105,12 +124,11 @@ export default class P2P {
             payload = {...base64Payload};
           };
           
-          const receivedMessage = new CustomEvent('received-message', {
+          this.dispatchEvent('received-message', {
             detail: {
               message: payload
             }
           });
-          document.dispatchEvent(receivedMessage);
         };
       };
     };
@@ -129,11 +147,9 @@ export default class P2P {
       this.peerConnection.oniceconnectionstatechange = () => {
         console.log('ice-connection-state:', this.peerConnection.iceConnectionState);
         if (this.peerConnection.iceConnectionState === 'connected') {
-          const peersConnected = new Event('peers-connected');
-          document.dispatchEvent(peersConnected);
+          this.dispatchEvent('peers-connected');
         } else if (this.peerConnection.iceConnectionState === 'disconnected') {
-          const peersDisconnected = new Event('peers-disconnected');
-          document.dispatchEvent(peersDisconnected);
+          this.dispatchEvent('peers-disconnected');
         };
       };
     });

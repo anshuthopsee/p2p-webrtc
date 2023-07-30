@@ -65,12 +65,12 @@ const Video = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('local-stream-available', handleLocStreamAvailable);
-    document.addEventListener('remote-stream-available', handleRemStreamAvailable);
+    PC.addEventListener('local-stream-available', handleLocStreamAvailable);
+    PC.addEventListener('remote-stream-available', handleRemStreamAvailable);
 
     return () => {
-      document.removeEventListener('local-stream-available', handleLocStreamAvailable);
-      document.removeEventListener('remote-stream-available', handleRemStreamAvailable);
+      PC.removeEventListener('local-stream-available', handleLocStreamAvailable);
+      PC.removeEventListener('remote-stream-available', handleRemStreamAvailable);
     };
   }, []);
 
