@@ -1,4 +1,5 @@
-import AppContextProvider from './AppContextProvider';
+import { useEffect, useContext } from 'react';
+import { AppContext } from './AppContextProvider';
 import Navbar from './Navbar';
 import Toast from './Toast';
 import GitHubIcon  from '@mui/icons-material/GitHub';
@@ -11,6 +12,7 @@ import Video from './Video';
 import Chat from './Chat';
 
 function App() {
+  const { setAppState, setToastState } = useContext(AppContext);
   const containerStyle = {
     display: 'flex',
     maxWidth: 'md',
@@ -47,27 +49,53 @@ function App() {
     }
   };
 
+  const handlePeersConnected = () => {
+    setAppState('peers-connected');
+    setToastState({
+      show: true,
+      message: "Peer connected.",
+      severity: "success",
+      key: new Date().getTime()
+    });
+  };
+
+  const handlePeersDisconnected = () => {
+    setToastState({
+      show: true,
+      message: "Peer disconnected.",
+      severity: "error",
+      key: new Date().getTime()
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener('peers-connected', handlePeersConnected);
+    document.addEventListener('peers-disconnected', handlePeersDisconnected);
+    return () => {
+      document.removeEventListener('peers-connected', handlePeersConnected);
+      document.removeEventListener('peers-disconnected', handlePeersDisconnected);
+    };
+  }, []);
+
   return (
     <>
-      <AppContextProvider>
-        <Toast/>
-        <Container {...containerStyle}>
-          <Box {...boxStyle}>
-            <Card/>
-            <Video/>
-            <Chat/>
-            <Typography {...footerStyle}>
-              <Link 
-                href="https://github.com/anshuthopsee/p2p-webrtc"
-                {...linkStyle}
-              >
-                <GitHubIcon/> 
-                p2p-webrtc 
-              </Link>
-            </Typography>
-          </Box>
-        </Container>
-      </AppContextProvider>
+      <Toast/>
+      <Container {...containerStyle}>
+        <Box {...boxStyle}>
+          <Card/>
+          <Video/>
+          <Chat/>
+          <Typography {...footerStyle}>
+            <Link 
+              href="https://github.com/anshuthopsee/p2p-webrtc"
+              {...linkStyle}
+            >
+              <GitHubIcon/> 
+              p2p-webrtc 
+            </Link>
+          </Typography>
+        </Box>
+      </Container>
     </>
   );
 };
