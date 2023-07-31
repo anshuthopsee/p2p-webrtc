@@ -14,7 +14,7 @@ class EventEmitter {
   };
 
   removeEventListener = (event) => {
-    if (!thisevents[event]) return;
+    if (!this.events[event]) return;
     delete this.events[event];
   };
 };

@@ -127,11 +127,11 @@ const Chat = () => {
   
 
   useEffect(() => {
-    document.addEventListener(
+    PC.addEventListener(
       'received-message', 
       handleMessageReceived
     );
-    return () => document.removeEventListener(
+    return () => PC.removeEventListener(
       'received-message', 
       handleMessageReceived
     );
