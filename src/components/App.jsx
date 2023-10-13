@@ -24,6 +24,7 @@ function App() {
 
   const boxStyle = {
     display: 'flex',
+    minHeight: '100vh',
     height: '100%',
     width: '100%',
     alignItems: 'center',
@@ -32,11 +33,13 @@ function App() {
   };
 
   const footerStyle = {
-    margin: '20px 0',
+    margin: '30px 0',
+    flex: 1,
     width: '100%',
     height: 'auto',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'end',
   };
 
   const linkStyle = {
@@ -45,7 +48,7 @@ function App() {
     alignItems: 'center',
     sx: {
       color: 'black',
-      textDecoration: 'none'
+      textDecorationColor: 'black'
     }
   };
 
