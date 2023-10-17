@@ -85,7 +85,7 @@ const Card = () => {
               p2p-webrtc 
             </Link>
             </Typography>
-          <Typography variant="body1">Serverless demonstration of WebRTC capabilites such as peer to peer exchange of Video/Audio, Text and Files.</Typography>
+          <Typography variant="body1">Serverless demonstration of WebRTC's capabilities for peer-to-peer Video/Audio, Text, and File exchange.</Typography>
         </ThemeProvider>
         {renderCardView()}
       </Box>
