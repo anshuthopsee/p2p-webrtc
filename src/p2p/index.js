@@ -198,13 +198,13 @@ export default class P2P extends EventEmitter {
     };
   };
 
-  pauseResumeVideo = (bool) => {
+  pauseVideo = (bool) => {
     this.localStream.getVideoTracks().forEach((track) => {
       track.enabled = bool;
     });
   };
 
-  pauseResumeAudio = (bool) => {
+  pauseAudio = (bool) => {
     this.localStream.getAudioTracks().forEach((track) => {
       track.enabled = bool;
     });

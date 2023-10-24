@@ -40,7 +40,7 @@ const Video = () => {
 
   const handleVideoBtnClick = () => {
     setIsVideoOn((prevState) => {
-      PC.pauseResumeVideo(!prevState);
+      PC.pauseVideo(!prevState);
       setToastState({
         show: true,
         message: !prevState ? 'Video on.' : 'Video off.',
@@ -53,7 +53,7 @@ const Video = () => {
 
   const handleMicBtnClick = () => {
     setIsMicOn((prevState) => {
-      PC.pauseResumeAudio(!prevState);
+      PC.pauseAudio(!prevState);
       setToastState({
         show: true,
         message: !prevState ? 'Mic on.' : 'Mic off',
