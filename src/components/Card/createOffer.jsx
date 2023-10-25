@@ -44,20 +44,25 @@ const CreateOffer = () => {
       {/* <QrCode value={offer}/> */}
       <Box {...containerStyle}>
         <TextField {...textFieldStyle} 
-        label={'copy-sdp-offer'}
+        label={offer ? 'copy-sdp-offer' : "creating-sdp-offer..."}
         value={offer}
-        />
+        >
+          {!offer && "Loading"}
+        </TextField>
         <Button 
           {...copyButtonStyle}
           onClick={handleCopy}
+          disabled={!offer}
         >
           <ContentCopyIcon 
-          {...copyIconStyle}
+            disabled={!offer}
+            {...copyIconStyle}
           />
         </Button>
       </Box>
       <Button {...buttonStyle}
         onClick={() => setAppState("accept-answer")}
+        disabled={!offer}
       >
         Accept Answer
       </Button>

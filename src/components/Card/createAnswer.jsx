@@ -43,14 +43,16 @@ const CreateAnswer = () => {
       {/* <QRCode value={answer}/> */}
       <Box {...containerStyle}>
       <TextField {...textFieldStyle}
-       label={'copy-sdp-answer'}
+        label={answer ? 'copy-sdp-answer' : "creating-sdp-answer..."}
        value={answer}
        />
       <Button 
         {...copyButtonStyle}
         onClick={handleCopy}
+        disabled={!answer}
       >
           <ContentCopyIcon 
+            disabled={!answer}
             {...copyIconStyle}
           />
       </Button>
