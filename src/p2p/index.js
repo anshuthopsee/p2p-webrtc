@@ -146,11 +146,6 @@ export default class P2P extends EventEmitter {
 
       this.peerConnection.oniceconnectionstatechange = () => {
         console.log('ice-connection-state:', this.peerConnection.iceConnectionState);
-        if (this.peerConnection.iceConnectionState === 'connected') {
-          this.dispatchEvent('peers-connected');
-        } else if (this.peerConnection.iceConnectionState === 'disconnected') {
-          this.dispatchEvent('peers-disconnected');
-        };
       };
     });
   };
