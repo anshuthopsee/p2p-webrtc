@@ -32,10 +32,14 @@ const CreateOffer = () => {
     };
   };
 
-  useEffect(async () => {
+  const createOffer = async () => {
     const result = await PC.createOffer();
     console.log(result);
     setOffer(result);
+  };
+
+  useEffect(() => {
+    createOffer();
   }, []);
   
   return (

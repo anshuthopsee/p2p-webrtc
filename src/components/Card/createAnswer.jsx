@@ -31,10 +31,14 @@ const CreateAnswer = () => {
     };
   };
 
-  useEffect(async () => {
+  const createAnswer = async () => {
     const result = await PC.createAnswer();
     console.log(result)
     setAnswer(result);
+  };
+
+  useEffect(() => {
+    createAnswer();
   }, []);
 
   return (
