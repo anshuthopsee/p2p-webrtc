@@ -43,7 +43,7 @@ const CreateAnswer = () => {
 
   return (
     <Box {...boxStyle(90, true)}>
-      <Typography variant={'h6'}>Send Answer to Peer</Typography>
+      <Typography variant={'h6'}>Share Answer with Peer</Typography>
       {/* <QRCode value={answer}/> */}
       <Box {...containerStyle}>
       <TextField {...textFieldStyle}

@@ -47,7 +47,7 @@ const AcceptOffer = () => {
 
   return (
     <Box {...boxStyle(90)}>
-      <Typography variant={'h6'}>Recieve & Paste Offer from Peer</Typography>
+      <Typography variant={'h6'}>Paste Offer from Peer</Typography>
       {/* <QrScanner {...{ 
         data, 
         setData, 

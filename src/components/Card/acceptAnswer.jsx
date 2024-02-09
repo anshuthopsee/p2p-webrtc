@@ -44,7 +44,7 @@ const AcceptAnswer = () => {
 
   return (
     <Box {...boxStyle(90, true)}>
-      <Typography variant={'h6'}>Recieve & Paste Answer from Peer</Typography>
+      <Typography variant={'h6'}>Paste Answer from Peer</Typography>
       {/* <QrScanner {...{ 
         data, 
         setData, 
